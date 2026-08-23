@@ -2,6 +2,7 @@ package com.xworkz.redbus.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "payment_info")
 @Getter
 @Setter
+@ToString
 public class PaymentEntity {
 
     @Id
@@ -33,4 +35,10 @@ public class PaymentEntity {
 
     @Column(name = "payment_status")
     private String paymentStatus;
+
+    @Column(name = "transaction_id")
+    private String transactionId;
+
+    @Column(name = "payment_date")
+    private String paymentDate;
 }

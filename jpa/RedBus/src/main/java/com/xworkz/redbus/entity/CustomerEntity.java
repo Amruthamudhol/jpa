@@ -2,6 +2,7 @@ package com.xworkz.redbus.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "customer_info")
 @Getter
+@ToString
 @Setter
 public class CustomerEntity {
 

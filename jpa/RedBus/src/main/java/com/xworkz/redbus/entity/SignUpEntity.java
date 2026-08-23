@@ -1,16 +1,18 @@
 package com.xworkz.redbus.entity;
 
-
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Setter
 @Getter
 @Entity
+@ToString
 @Table(name = "signUp_info")
 public class SignUpEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
