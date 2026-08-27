@@ -5,7 +5,9 @@ import com.xworkz.MovieZone.entity.MovieEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class MovieDAOimpl implements MovieDAO {
     @Override
@@ -31,6 +33,86 @@ public class MovieDAOimpl implements MovieDAO {
 
             e.printStackTrace();
             return false;
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean saveAll(List<MovieEntity> entityList) {
+        System.out.println("Invoking saveAll : MovieDAOImpl");
+
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+            et.begin();
+
+            for (MovieEntity entity : entityList) {
+
+                em.persist(entity);
+            }
+
+            et.commit();
+
+            return true;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+
+            return false;
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+    }
+
+
+
+    @Override
+    public MovieEntity findMovieEntityById(Integer id) {
+
+        System.out.println("Invoking findMovieEntityById : MovieDAOImpl");
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+            MovieEntity entity = em.find(MovieEntity.class, id);
+
+            return entity;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return null;
 
         } finally {
 

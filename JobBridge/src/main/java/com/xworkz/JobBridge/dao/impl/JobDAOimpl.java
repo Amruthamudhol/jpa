@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JobDAOimpl implements JobDAO {
 
@@ -21,7 +22,6 @@ public class JobDAOimpl implements JobDAO {
 
             emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
-
             et = em.getTransaction();
             et.begin();
 
@@ -42,6 +42,82 @@ public class JobDAOimpl implements JobDAO {
             e.printStackTrace();
 
             return false;
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+    }
+
+
+    @Override
+    public boolean saveAll(List<JobEntity> entityList) {
+
+        System.out.println("Invoking saveAll : JobDAOimpl");
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+            et.begin();
+
+            for (JobEntity entity : entityList) {
+                em.persist(entity);
+            }
+
+            et.commit();
+            return true;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+            return false;
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+    }
+
+
+
+    @Override
+    public JobEntity findJobEntityById(Integer id) {
+
+        System.out.println("Invoking findJobEntityById : JobDAOImpl");
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+            JobEntity entity = em.find(JobEntity.class, id);
+
+            return entity;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
 
         } finally {
 

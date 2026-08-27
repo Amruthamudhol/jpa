@@ -6,6 +6,9 @@ import com.xworkz.RentRide.dto.VehicleDTO;
 import com.xworkz.RentRide.entity.VehicleEntity;
 import com.xworkz.RentRide.service.VehicleService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VehicleServiceImpl implements VehicleService {
 
     VehicleDAO vehicleDAO = new VehicleDAOimpl();
@@ -40,4 +43,62 @@ public class VehicleServiceImpl implements VehicleService {
         }
 
         return isSaved;
-    }}
+    }
+
+    @Override
+    public String saveAll(List<VehicleDTO> dtoList) {
+        System.out.println("Invoking saveAll : VehicleServiceImpl");
+        String isSaved = null;
+
+        if (dtoList != null) {
+            System.out.println("List of DTO : " + dtoList);
+            List<VehicleEntity> entityList = new ArrayList<>();
+
+            for (VehicleDTO dto : dtoList) {
+                VehicleEntity entity = new VehicleEntity();
+                entity.setVehicleName(dto.getVehicleName());
+                entity.setVehicleType(dto.getVehicleType());
+                entity.setBrand(dto.getBrand());
+                entity.setModel(dto.getModel());
+                entity.setRentPerDay(dto.getRentPerDay());
+
+                entityList.add(entity);
+            }
+
+            boolean status = vehicleDAO.saveAll(entityList);
+
+            if (status) {
+                isSaved = "Data Saved in database";
+            } else {
+                isSaved = "Data Not Saved in database";
+            }
+
+        } else {
+
+            isSaved = "Data is Empty";
+        }
+
+        return isSaved;
+    }
+
+    @Override
+    public VehicleDTO findVehicleDTOById(Integer id) {
+        System.out.println("Invoking findVehicleDTOById : VehicleServiceImpl");
+        VehicleEntity entity = vehicleDAO.findVehicleEntityById(id);
+        if (entity != null) {
+
+            VehicleDTO dto = new VehicleDTO();
+
+            dto.setVehicleName(entity.getVehicleName());
+            dto.setVehicleType(entity.getVehicleType());
+            dto.setBrand(entity.getBrand());
+            dto.setModel(entity.getModel());
+            dto.setRentPerDay(entity.getRentPerDay());
+
+            return dto;
+        }
+
+        return null;
+    }
+
+}

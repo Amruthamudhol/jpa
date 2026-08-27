@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class VehicleDAOimpl implements VehicleDAO {
 
@@ -39,6 +40,77 @@ public class VehicleDAOimpl implements VehicleDAO {
             e.printStackTrace();
 
             return false;
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+    }
+
+    @Override
+    public boolean saveAll(List<VehicleEntity> entityList) {
+
+        System.out.println("Invoking saveAll : VehicleDAOImpl");
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+            et.begin();
+
+            for (VehicleEntity entity : entityList) {
+                em.persist(entity);
+            }
+
+            et.commit();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+            return false;
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+    }
+
+
+    @Override
+    public VehicleEntity findVehicleEntityById(Integer id) {
+
+        System.out.println("Invoking findVehicleEntityById : VehicleDAOImpl");
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+            VehicleEntity entity = em.find(VehicleEntity.class, id);
+            return entity;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return null;
 
         } finally {
 

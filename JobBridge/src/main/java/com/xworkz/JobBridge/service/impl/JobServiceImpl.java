@@ -6,6 +6,9 @@ import com.xworkz.JobBridge.dto.JobDTO;
 import com.xworkz.JobBridge.entity.JobEntity;
 import com.xworkz.JobBridge.service.JobService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JobServiceImpl implements JobService {
     JobDAO jobDAO = new JobDAOimpl();
 
@@ -40,6 +43,59 @@ public class JobServiceImpl implements JobService {
         }
 
         return isSaved;
+    }
+
+    @Override
+    public String saveAll(List<JobDTO> dtoList) {
+        System.out.println("Invoking saveAll : JobServiceImpl");
+        String isSaved = null;
+
+        if (dtoList != null ) {
+            System.out.println("List of DTO : " + dtoList);
+            List<JobEntity> entityList = new ArrayList<>();
+
+            for (JobDTO dto : dtoList) {
+                JobEntity entity = new JobEntity();
+                entity.setJobTitle(dto.getJobTitle());
+                entity.setCompanyName(dto.getCompanyName());
+                entity.setLocation(dto.getLocation());
+                entity.setJobType(dto.getJobType());
+                entity.setSalary(dto.getSalary());
+                entityList.add(entity);
+            }
+            boolean status = jobDAO.saveAll(entityList);
+
+            if (status) {
+                isSaved = "Data Saved in database";
+            } else {
+                isSaved = "Data Not Saved in database";
+            }
+
+        } else {
+            isSaved = "Data is Empty";
+        }
+        return isSaved;
+    }
+
+
+    @Override
+    public JobDTO findJobDTOById(Integer id) {
+        System.out.println("Invoking findJobDTOById : JobServiceImpl");
+        JobEntity entity = jobDAO.findJobEntityById(id);
+        if (entity != null) {
+
+            JobDTO dto = new JobDTO();
+
+            dto.setJobTitle(entity.getJobTitle());
+            dto.setCompanyName(entity.getCompanyName());
+            dto.setLocation(entity.getLocation());
+            dto.setJobType(entity.getJobType());
+            dto.setSalary(entity.getSalary());
+
+            return dto;
+        }
+
+        return null;
     }
 
 }
