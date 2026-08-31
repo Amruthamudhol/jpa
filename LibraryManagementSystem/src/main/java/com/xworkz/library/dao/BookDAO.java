@@ -8,4 +8,5 @@ public interface BookDAO {
     boolean save(BookEntity entity);
     boolean saveAll(List<BookEntity> entityList);
     BookEntity findBookEntityById(Integer id);
+    List<BookEntity> readAllBookEntity();
 }

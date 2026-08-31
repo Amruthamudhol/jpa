@@ -29,6 +29,10 @@ public class BookRunner {
         BookDTO dtoById = service.findBookDTOById(1);
         System.out.println("Found Dto is : " + dtoById);
 
+
+        List<BookDTO> bookDTOList1= service.readAllBookDTO();
+        bookDTOList1.forEach(a -> System.out.println(a));
+
     }
 
 }

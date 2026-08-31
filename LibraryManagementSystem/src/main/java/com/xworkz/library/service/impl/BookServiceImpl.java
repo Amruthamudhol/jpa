@@ -8,6 +8,7 @@ import com.xworkz.library.service.BookService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BookServiceImpl implements BookService {
     BookDAO bookDAO = new BookDAOimpl();
@@ -107,4 +108,28 @@ public class BookServiceImpl implements BookService {
         return null;
     }
 
+
+    @Override
+    public List<BookDTO> readAllBookDTO() {
+
+        System.out.println("readAllBookDTO : BookServiceImpl");
+
+        List<BookEntity> entityList = bookDAO.readAllBookEntity();
+
+        List<BookDTO> dtoList = entityList.stream()
+                .map(entity -> {
+                    BookDTO dto = new BookDTO();
+
+                    dto.setId(entity.getId());
+                    dto.setTitle(entity.getTitle());
+                    dto.setAuthor(entity.getAuthor());
+                    dto.setCategory(entity.getCategory());
+                    dto.setPrice(entity.getPrice());
+                    dto.setQuantity(entity.getQuantity());
+
+                    return dto;
+                })
+                .collect(Collectors.toList());
+        return dtoList;
+    }
 }

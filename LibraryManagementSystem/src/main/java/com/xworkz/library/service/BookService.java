@@ -8,4 +8,6 @@ public interface BookService {
     boolean validateAndSave(BookDTO dto);
     String saveAll(List<BookDTO> dtoList);
     BookDTO findBookDTOById(Integer id);
+
+    List<BookDTO> readAllBookDTO();
 }

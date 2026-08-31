@@ -4,6 +4,7 @@ import com.xworkz.library.Entity.BookEntity;
 import com.xworkz.library.dao.BookDAO;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
 
 public class BookDAOimpl implements BookDAO {
@@ -124,5 +125,40 @@ public class BookDAOimpl implements BookDAO {
                 emf.close();
             }
         }
+    }
+
+
+
+    @Override
+    public List<BookEntity> readAllBookEntity() {
+
+        System.out.println("readAllBookEntity : BookDaoImpl");
+        List<BookEntity> bookEntityList = Collections.emptyList();
+
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+            Query query = em.createQuery("select b from BookEntity b");
+
+            bookEntityList = query.getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+
+        return bookEntityList;
     }
 }
