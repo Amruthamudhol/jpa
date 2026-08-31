@@ -8,4 +8,6 @@ public interface JobDAO {
     boolean save(JobEntity jobEntity);
     boolean saveAll(List<JobEntity> entityList);
     JobEntity findJobEntityById(Integer id);
+
+    List<JobEntity> readAllJobEntity();
 }

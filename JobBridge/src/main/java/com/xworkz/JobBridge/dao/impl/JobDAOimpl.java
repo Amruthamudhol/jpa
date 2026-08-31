@@ -3,10 +3,8 @@ package com.xworkz.JobBridge.dao.impl;
 import com.xworkz.JobBridge.dao.JobDAO;
 import com.xworkz.JobBridge.entity.JobEntity;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
 
 public class JobDAOimpl implements JobDAO {
@@ -129,5 +127,41 @@ public class JobDAOimpl implements JobDAO {
                 emf.close();
             }
         }
+    }
+
+
+
+    @Override
+    public List<JobEntity> readAllJobEntity() {
+
+        System.out.println("readAllJobEntity : JobDaoImpl");
+
+        List<JobEntity> jobEntityList = Collections.emptyList();
+
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+
+            Query query = em.createQuery("select j from JobEntity j");
+            jobEntityList = query.getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+
+        return jobEntityList;
     }
 }

@@ -31,6 +31,11 @@ public class JobRunner {
 
         JobDTO dtoById = service.findJobDTOById(3);
         System.out.println("Found Dto is : " + dtoById);
+
+
+        //  getAll
+        List<JobDTO> jobDTOList1 = service.readAllJobDTO();
+        jobDTOList1.forEach(a -> System.out.println(a));
     }
     }
 

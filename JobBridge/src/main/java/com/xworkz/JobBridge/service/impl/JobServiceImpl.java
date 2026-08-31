@@ -8,6 +8,7 @@ import com.xworkz.JobBridge.service.JobService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class JobServiceImpl implements JobService {
     JobDAO jobDAO = new JobDAOimpl();
@@ -96,6 +97,26 @@ public class JobServiceImpl implements JobService {
         }
 
         return null;
+    }
+
+
+
+    @Override
+    public List<JobDTO> readAllJobDTO() {
+        System.out.println("readAllJobDTO : JobServiceImpl");
+        List<JobEntity> entityList = jobDAO.readAllJobEntity();
+
+        List<JobDTO> dtoList = entityList.stream()
+                .map(entity -> new JobDTO(
+                        entity.getJobTitle(),
+                        entity.getCompanyName(),
+                        entity.getLocation(),
+                        entity.getJobType(),
+                        entity.getSalary()
+                ))
+                .collect(Collectors.toList());
+
+        return dtoList;
     }
 
 }

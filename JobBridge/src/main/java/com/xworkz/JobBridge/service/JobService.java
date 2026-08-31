@@ -9,5 +9,6 @@ public interface JobService {
 
     String saveAll(List<JobDTO> dtoList);
     JobDTO findJobDTOById(Integer id);
+    List<JobDTO> readAllJobDTO();
 
 }
