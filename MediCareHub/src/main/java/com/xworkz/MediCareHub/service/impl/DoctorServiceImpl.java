@@ -8,6 +8,7 @@ import com.xworkz.MediCareHub.service.DoctorService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DoctorServiceImpl implements DoctorService {
     DoctorDAO doctorDAO = new DoctorDAOimpl();
@@ -101,4 +102,25 @@ public class DoctorServiceImpl implements DoctorService {
 
         return null;
     }
+
+
+    @Override
+    public List<DoctorDTO> readAllDoctorDTO() {
+
+        System.out.println("readAllDoctorDTO : DoctorServiceImpl");
+        List<DoctorEntity> entityList = doctorDAO.readAllDoctorEntity();
+
+        List<DoctorDTO> dtoList = entityList.stream()
+                .map(entity -> new DoctorDTO(
+                        entity.getDoctorName(),
+                        entity.getSpecialization(),
+                        entity.getEmail(),
+                        entity.getPhoneNumber(),
+                        entity.getExperience()
+                ))
+                .collect(Collectors.toList());
+        return dtoList;
+    }
+
+
 }

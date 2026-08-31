@@ -3,10 +3,8 @@ package com.xworkz.MediCareHub.dao.impl;
 import com.xworkz.MediCareHub.dao.DoctorDAO;
 import com.xworkz.MediCareHub.entity.DoctorEntity;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
 
 public class DoctorDAOimpl implements DoctorDAO {
@@ -129,5 +127,36 @@ public class DoctorDAOimpl implements DoctorDAO {
                 emf.close();
             }
         }
+    }
+
+
+
+    @Override
+    public List<DoctorEntity> readAllDoctorEntity() {
+        System.out.println("readAllDoctorEntity : DoctorDaoImpl");
+        List<DoctorEntity> doctorEntityList = Collections.emptyList();
+
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+
+            Query query = em.createQuery("select d from DoctorEntity d");
+            doctorEntityList = query.getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+            if (emf != null) {
+                emf.close();
+            }
+        }
+
+        return doctorEntityList;
     }
 }

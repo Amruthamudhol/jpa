@@ -25,6 +25,11 @@ public class DoctorRunner {
 
         DoctorDTO dtoById = service.findDoctorDTOById(1);
         System.out.println("Found Dto is : " + dtoById);
-        }
+
+
+        List<DoctorDTO> doctorDTOList1 = service.readAllDoctorDTO();
+        doctorDTOList1.forEach(a -> System.out.println(a));
+
+    }
 
 }

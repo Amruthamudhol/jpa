@@ -8,4 +8,5 @@ public interface DoctorService {
     boolean validateAndSave(DoctorDTO dto);
     String saveAll(List<DoctorDTO> dtoList);
     DoctorDTO findDoctorDTOById(Integer id);
+    List<DoctorDTO> readAllDoctorDTO();
 }
