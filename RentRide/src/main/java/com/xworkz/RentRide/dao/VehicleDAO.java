@@ -8,4 +8,5 @@ public interface VehicleDAO {
     boolean save(VehicleEntity entity);
     boolean saveAll(List<VehicleEntity> entityList);
     VehicleEntity findVehicleEntityById(Integer id);
+    List<VehicleEntity> readAllVehicleEntity();
 }

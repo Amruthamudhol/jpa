@@ -3,10 +3,8 @@ package com.xworkz.RentRide.dao.impl;
 import com.xworkz.RentRide.dao.VehicleDAO;
 import com.xworkz.RentRide.entity.VehicleEntity;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
 
 public class VehicleDAOimpl implements VehicleDAO {
@@ -122,5 +120,38 @@ public class VehicleDAOimpl implements VehicleDAO {
                 emf.close();
             }
         }
+    }
+
+
+    @Override
+    public List<VehicleEntity> readAllVehicleEntity() {
+        System.out.println("readAllVehicleEntity : VehicleDaoImpl");
+        List<VehicleEntity> vehicleEntityList = Collections.emptyList();
+
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+
+            Query query = em.createQuery("select v from VehicleEntity v");
+            vehicleEntityList = query.getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+
+        return vehicleEntityList;
     }
 }

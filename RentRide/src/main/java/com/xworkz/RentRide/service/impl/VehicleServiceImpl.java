@@ -8,6 +8,7 @@ import com.xworkz.RentRide.service.VehicleService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VehicleServiceImpl implements VehicleService {
 
@@ -99,6 +100,26 @@ public class VehicleServiceImpl implements VehicleService {
         }
 
         return null;
+    }
+
+
+    @Override
+    public List<VehicleDTO> readAllVehicleDTO() {
+        System.out.println("readAllVehicleDTO : VehicleServiceImpl");
+
+        List<VehicleEntity> entityList = vehicleDAO.readAllVehicleEntity();
+
+        List<VehicleDTO> dtoList = entityList.stream()
+                .map(entity -> new VehicleDTO(
+                        entity.getVehicleName(),
+                        entity.getVehicleType(),
+                        entity.getBrand(),
+                        entity.getModel(),
+                        entity.getRentPerDay()
+                ))
+                .collect(Collectors.toList());
+
+        return dtoList;
     }
 
 }

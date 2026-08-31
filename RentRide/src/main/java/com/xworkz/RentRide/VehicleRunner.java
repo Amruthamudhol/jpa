@@ -29,5 +29,9 @@ public class VehicleRunner {
 
         VehicleDTO dtoById = service.findVehicleDTOById(1);
         System.out.println("Found Dto is : " + dtoById);
+
+//getall
+        List<VehicleDTO> vehicleDTOList1= service.readAllVehicleDTO();
+        vehicleDTOList1.forEach(a -> System.out.println(a));
     }
 }

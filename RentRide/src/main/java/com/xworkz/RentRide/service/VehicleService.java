@@ -8,4 +8,5 @@ public interface VehicleService {
     boolean save(VehicleDTO dto);
     String saveAll(List<VehicleDTO> dtoList);
     VehicleDTO findVehicleDTOById(Integer id);
+    List<VehicleDTO> readAllVehicleDTO();
 }
