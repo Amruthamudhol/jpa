@@ -8,6 +8,7 @@ import com.xworkz.MovieZone.service.MovieService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MovieServiceImpl implements MovieService {
     MovieDAO movieDAO = new MovieDAOimpl();
@@ -107,5 +108,24 @@ public class MovieServiceImpl implements MovieService {
         }
 
         return null;
+    }
+
+
+    @Override
+    public List<MovieDTO> readAllMovieDTO() {
+
+        System.out.println("readAllMovieDTO : MovieServiceImpl");
+
+        List<MovieEntity> entityList = movieDAO.readAllMovieEntity();
+
+        return entityList.stream()
+                .map(entity -> new MovieDTO(
+                        entity.getTitle(),
+                        entity.getDirector(),
+                        entity.getGenre(),
+                        entity.getLanguage(),
+                        entity.getRating()
+                ))
+                .collect(Collectors.toList());
     }
 }

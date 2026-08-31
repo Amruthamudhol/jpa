@@ -3,10 +3,8 @@ package com.xworkz.MovieZone.dao.impl;
 import com.xworkz.MovieZone.dao.MovieDAO;
 import com.xworkz.MovieZone.entity.MovieEntity;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
 
 public class MovieDAOimpl implements MovieDAO {
@@ -124,5 +122,38 @@ public class MovieDAOimpl implements MovieDAO {
                 emf.close();
             }
         }
+    }
+
+
+
+    @Override
+    public List<MovieEntity> readAllMovieEntity() {
+        System.out.println("readAllMovieEntity : MovieDaoImpl");
+        List<MovieEntity> movieEntityList = Collections.emptyList();
+
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+
+            Query query = em.createQuery("select m from MovieEntity m");
+            movieEntityList = query.getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+
+        return movieEntityList;
     }
 }

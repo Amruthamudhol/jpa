@@ -9,5 +9,6 @@ public interface MovieDAO {
     boolean save(MovieEntity entity);
     boolean saveAll(List<MovieEntity> entityList);
     MovieEntity findMovieEntityById(Integer id);
+    List<MovieEntity> readAllMovieEntity();
 
 }

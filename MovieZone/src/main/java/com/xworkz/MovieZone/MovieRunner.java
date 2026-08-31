@@ -28,6 +28,10 @@ public class MovieRunner {
 
         MovieDTO dtoById = service.findMovieDTOById(1);
         System.out.println("Found Dto is : " + dtoById);
+
+        //getall
+        List<MovieDTO> movieDTOList1= service.readAllMovieDTO();
+        movieDTOList1.forEach(a -> System.out.println(a));
     }
 
 
