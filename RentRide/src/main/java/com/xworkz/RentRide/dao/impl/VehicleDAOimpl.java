@@ -99,7 +99,6 @@ public class VehicleDAOimpl implements VehicleDAO {
         EntityManager em = null;
 
         try {
-
             emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             VehicleEntity entity = em.find(VehicleEntity.class, id);
@@ -122,7 +121,7 @@ public class VehicleDAOimpl implements VehicleDAO {
         }
     }
 
-
+//getResultList
     @Override
     public List<VehicleEntity> readAllVehicleEntity() {
         System.out.println("readAllVehicleEntity : VehicleDaoImpl");
@@ -153,5 +152,154 @@ public class VehicleDAOimpl implements VehicleDAO {
         }
 
         return vehicleEntityList;
+    }
+
+//getSingleResult
+    @Override
+    public VehicleEntity getVehicleByName(String vehicleName) {
+        System.out.println("Invoking findByVehicleName : " + vehicleName);
+
+        VehicleEntity entity = null;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+            Query query = em.createNamedQuery("getVehicleByName");
+            query.setParameter("vehicleName", vehicleName);
+
+            entity = (VehicleEntity) query.getSingleResult();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+
+        return entity;
+    }
+
+
+//getResultList
+    @Override
+    public List<VehicleEntity> getVehicleByBrandAndType(String brand, String vehicleType) {
+
+        System.out.println("Invoking getVehicleByBrandAndType");
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+        List<VehicleEntity> entityList = null;
+
+        try {
+
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+            Query query = em.createNamedQuery("getVehicleByBrandAndType");
+
+            query.setParameter("brand", brand);
+            query.setParameter("vehicleType", vehicleType);
+
+            entityList = query.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+
+        return entityList;
+    }
+
+
+
+//getSingleResult
+    @Override
+    public VehicleEntity getVehicleByModel(String model, Integer id) {
+
+        System.out.println("Invoking getVehicleByModel : " + model + ", " + id);
+        VehicleEntity entity = null;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+            Query query = em.createNamedQuery("getVehicleByModel");
+
+            query.setParameter("model", model);
+            query.setParameter("id", id);
+
+            Object ref = query.getSingleResult();
+            entity = (VehicleEntity) ref;
+
+        } catch (PersistenceException e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+
+        return entity;
+    }
+
+
+    //getResultList()
+
+    @Override
+    public List<VehicleEntity> getVehicleByBrandAndModel(String brand, String model) {
+
+        System.out.println("Invoking getVehicleByBrandAndModel : " + brand + ", " + model);
+
+        List<VehicleEntity> entityList = null;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+            Query query = em.createNamedQuery("getVehicleByBrandAndModel");
+
+            query.setParameter("brand", brand);
+            query.setParameter("model", model);
+            entityList = query.getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+
+        return entityList;
     }
 }

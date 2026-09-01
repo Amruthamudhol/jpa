@@ -13,10 +13,15 @@ import javax.persistence.*;
 @ToString
 
 @NamedQuery(name = "findVehicleEntityById", query = "SELECT e FROM VehicleEntity e WHERE e.id = :id")
-@NamedQuery(name = "findByVehicleType", query = "select v from VehicleEntity v where v.vehicleType = :vehicleType")
-@NamedQuery(name = "findByBrand", query = "select v from VehicleEntity v where v.brand = :brand")
-@NamedQuery(name = "findByModel", query = "select v from VehicleEntity v where v.model = :model")
-@NamedQuery(name = "findByRentPerDay", query = "select v from VehicleEntity v where v.rentPerDay = :rentPerDay")
+@NamedQuery(name = "getVehicleByName", query = "SELECT e FROM VehicleEntity e WHERE e.vehicleName = :vehicleName")
+@NamedQuery(name = "getVehicleByBrandAndType", query = "SELECT e FROM VehicleEntity e WHERE e.brand = :brand AND e.vehicleType = :vehicleType")
+@NamedQuery(name = "getVehicleByModel", query = "SELECT e FROM VehicleEntity e WHERE e.model = :model AND e.id = :id")
+@NamedQuery(name = "getVehicleByRentPerDay", query = "SELECT e FROM VehicleEntity e WHERE e.rentPerDay = :rentPerDay")
+@NamedQuery(name = "getVehicleByBrandAndModel", query = "SELECT e FROM VehicleEntity e WHERE e.brand = :brand AND e.model = :model")
+
+
+
+
 
 //update
 @NamedQuery(name = "updateVehicleName", query = "update VehicleEntity v set v.vehicleName = :vehicleName where v.id = :id")

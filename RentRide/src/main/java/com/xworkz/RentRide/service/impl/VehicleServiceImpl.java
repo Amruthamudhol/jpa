@@ -121,5 +121,86 @@ public class VehicleServiceImpl implements VehicleService {
 
         return dtoList;
     }
+    @Override
+    public VehicleDTO getVehicleByName(String name) {
+        System.out.println("Invoking getVehicleByName : VehicleServiceImpl");
+        VehicleDTO vehicleDTO = null;
 
+        VehicleEntity vehicleEntity = vehicleDAO.getVehicleByName(name);
+
+        if (vehicleEntity != null) {
+
+            vehicleDTO = new VehicleDTO(
+                    vehicleEntity.getVehicleName(),
+                    vehicleEntity.getVehicleType(),
+                    vehicleEntity.getBrand(),
+                    vehicleEntity.getModel(),
+                    vehicleEntity.getRentPerDay()
+            );
+        }
+
+        return vehicleDTO;
+    }
+
+
+    @Override
+    public List<VehicleDTO> getVehicleByBrandAndType(String brand, String vehicleType) {
+        System.out.println("Invoking getVehicleByBrandAndType : VehicleServiceImpl");
+        List<VehicleDTO> vehicleDTOList = new ArrayList<>();
+
+        List<VehicleEntity> vehicleEntityList = vehicleDAO.getVehicleByBrandAndType(brand, vehicleType);
+
+        for (VehicleEntity vehicleEntity : vehicleEntityList) {
+
+            VehicleDTO vehicleDTO = new VehicleDTO(vehicleEntity.getVehicleName(), vehicleEntity.getVehicleType(), vehicleEntity.getBrand(), vehicleEntity.getModel(), vehicleEntity.getRentPerDay());
+            vehicleDTOList.add(vehicleDTO);
+        }
+
+        return vehicleDTOList;
+    }
+
+
+
+    @Override
+    public VehicleDTO getVehicleByModel(String model, Integer id) {
+        VehicleDTO vehicleDTO = null;
+        VehicleEntity vehicleEntity = vehicleDAO.getVehicleByModel(model, id);
+
+        if (vehicleEntity != null) {
+
+            vehicleDTO = new VehicleDTO(
+                    vehicleEntity.getVehicleName(),
+                    vehicleEntity.getVehicleType(),
+                    vehicleEntity.getBrand(),
+                    vehicleEntity.getModel(),
+                    vehicleEntity.getRentPerDay()
+            );
+        }
+
+        return vehicleDTO;
+    }
+
+
+
+    @Override
+    public List<VehicleDTO> getVehicleByBrandAndModel(String brand, String model) {
+
+        List<VehicleDTO> vehicleDTOList = new ArrayList<>();
+        List<VehicleEntity> vehicleEntityList = vehicleDAO.getVehicleByBrandAndModel(brand, model);
+
+        for (VehicleEntity vehicleEntity : vehicleEntityList) {
+
+            VehicleDTO vehicleDTO = new VehicleDTO(
+                    vehicleEntity.getVehicleName(),
+                    vehicleEntity.getVehicleType(),
+                    vehicleEntity.getBrand(),
+                    vehicleEntity.getModel(),
+                    vehicleEntity.getRentPerDay()
+            );
+
+            vehicleDTOList.add(vehicleDTO);
+        }
+
+        return vehicleDTOList;
+    }
 }
