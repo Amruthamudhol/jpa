@@ -9,4 +9,8 @@ public interface DoctorService {
     String saveAll(List<DoctorDTO> dtoList);
     DoctorDTO findDoctorDTOById(Integer id);
     List<DoctorDTO> readAllDoctorDTO();
+    List<DoctorDTO> getDoctorsBySpecializationAndExperience(String specialization, Integer experience);
+    List<DoctorDTO> getDoctorsBySpecializationAndEmail(String specialization, String email);
+    List<DoctorDTO> getDoctorsByExperienceAndSpecialization(Integer experience, String specialization);
+    DoctorDTO getDoctorByNameAndSpecialization(String doctorName, String specialization);
 }

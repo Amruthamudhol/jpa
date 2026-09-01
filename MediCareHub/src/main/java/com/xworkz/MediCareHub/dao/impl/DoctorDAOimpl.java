@@ -130,7 +130,7 @@ public class DoctorDAOimpl implements DoctorDAO {
     }
 
 
-
+//getResultList()
     @Override
     public List<DoctorEntity> readAllDoctorEntity() {
         System.out.println("readAllDoctorEntity : DoctorDaoImpl");
@@ -158,5 +158,132 @@ public class DoctorDAOimpl implements DoctorDAO {
         }
 
         return doctorEntityList;
+    }
+
+//getResultList()
+    @Override
+    public List<DoctorEntity> getDoctorsBySpecializationAndExperience(String specialization, Integer experience) {
+
+        List<DoctorEntity> entityList = null;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+            Query query = em.createNamedQuery("getDoctorsBySpecializationAndExperience");
+
+            query.setParameter("specialization", specialization);
+            query.setParameter("experience", experience);
+
+            entityList = query.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+
+        return entityList;
+    }
+
+//getResultList();
+    @Override
+    public List<DoctorEntity> getDoctorsBySpecializationAndEmail(String specialization, String email) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+        EntityManager em = emf.createEntityManager();
+
+        List<DoctorEntity> entityList = null;
+
+        try {
+
+            Query query = em.createNamedQuery("getDoctorsBySpecializationAndEmail");
+
+            query.setParameter("specialization", specialization);
+            query.setParameter("email", email);
+
+            entityList = query.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+
+            em.close();
+            emf.close();
+        }
+
+        return entityList;
+    }
+
+//getResultList()
+    @Override
+    public List<DoctorEntity> getDoctorsByExperienceAndSpecialization(Integer experience, String specialization) {
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+        EntityManager em = emf.createEntityManager();
+        List<DoctorEntity> entityList = null;
+
+        try {
+
+            Query query = em.createNamedQuery("getDoctorsByExperienceAndSpecialization");
+
+            query.setParameter("experience", experience);
+            query.setParameter("specialization", specialization);
+
+            entityList = query.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+
+            em.close();
+            emf.close();
+        }
+
+        return entityList;
+    }
+
+
+    //getSingleResult()
+    @Override
+    public DoctorEntity getDoctorByNameAndSpecialization(String doctorName, String specialization) {
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+        EntityManager em = emf.createEntityManager();
+
+        DoctorEntity entity = null;
+
+        try {
+
+            Query query = em.createNamedQuery("getDoctorByNameAndSpecialization");
+
+            query.setParameter("doctorName", doctorName);
+            query.setParameter("specialization", specialization);
+
+            Object ref = query.getSingleResult();
+
+            entity = (DoctorEntity) ref;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+
+            em.close();
+            emf.close();
+        }
+
+        return entity;
     }
 }

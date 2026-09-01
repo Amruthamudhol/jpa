@@ -123,4 +123,92 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
 
+    @Override
+    public List<DoctorDTO> getDoctorsBySpecializationAndExperience(String specialization, Integer experience) {
+
+        List<DoctorDTO> dtoList = new ArrayList<>();
+        List<DoctorEntity> entityList = doctorDAO.getDoctorsBySpecializationAndExperience(specialization, experience);
+
+        for (DoctorEntity entity : entityList) {
+
+            DoctorDTO dto = new DoctorDTO();
+            dto.setDoctorName(entity.getDoctorName());
+            dto.setSpecialization(entity.getSpecialization());
+            dto.setEmail(entity.getEmail());
+            dto.setPhoneNumber(entity.getPhoneNumber());
+            dto.setExperience(entity.getExperience());
+
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
+
+    @Override
+    public List<DoctorDTO> getDoctorsBySpecializationAndEmail(String specialization, String email) {
+
+        List<DoctorDTO> dtoList = new ArrayList<>();
+
+        List<DoctorEntity> entityList = doctorDAO.getDoctorsBySpecializationAndEmail(specialization, email);
+
+        for (DoctorEntity entity : entityList) {
+            DoctorDTO dto = new DoctorDTO();
+
+            dto.setDoctorName(entity.getDoctorName());
+            dto.setSpecialization(entity.getSpecialization());
+            dto.setEmail(entity.getEmail());
+            dto.setPhoneNumber(entity.getPhoneNumber());
+            dto.setExperience(entity.getExperience());
+
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
+
+
+    @Override
+    public List<DoctorDTO> getDoctorsByExperienceAndSpecialization(Integer experience, String specialization) {
+
+        List<DoctorDTO> dtoList = new ArrayList<>();
+
+        List<DoctorEntity> entityList = doctorDAO.getDoctorsByExperienceAndSpecialization(experience, specialization);
+
+        for (DoctorEntity entity : entityList) {
+
+            DoctorDTO dto = new DoctorDTO();
+
+            dto.setDoctorName(entity.getDoctorName());
+            dto.setSpecialization(entity.getSpecialization());
+            dto.setEmail(entity.getEmail());
+            dto.setPhoneNumber(entity.getPhoneNumber());
+            dto.setExperience(entity.getExperience());
+
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
+
+
+    @Override
+    public DoctorDTO getDoctorByNameAndSpecialization(String doctorName, String specialization) {
+
+        DoctorEntity entity = doctorDAO.getDoctorByNameAndSpecialization(doctorName, specialization);
+
+        DoctorDTO dto = null;
+
+        if (entity != null) {
+
+            dto = new DoctorDTO();
+
+            dto.setDoctorName(entity.getDoctorName());
+            dto.setSpecialization(entity.getSpecialization());
+            dto.setEmail(entity.getEmail());
+            dto.setPhoneNumber(entity.getPhoneNumber());
+            dto.setExperience(entity.getExperience());
+        }
+
+        return dto;
+    }
 }

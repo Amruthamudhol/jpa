@@ -10,4 +10,8 @@ public interface DoctorDAO {
     DoctorEntity findDoctorEntityById(Integer id);
 
     List<DoctorEntity> readAllDoctorEntity();
+    List<DoctorEntity> getDoctorsBySpecializationAndExperience(String specialization, Integer experience);
+    List<DoctorEntity> getDoctorsBySpecializationAndEmail(String specialization, String email);
+    List<DoctorEntity> getDoctorsByExperienceAndSpecialization(Integer experience, String specialization);
+    DoctorEntity getDoctorByNameAndSpecialization(String doctorName, String specialization);
 }

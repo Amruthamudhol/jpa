@@ -15,10 +15,10 @@ import javax.persistence.*;
 //Read
 @NamedQuery(name = "findDoctorEntity", query = "SELECT d FROM DoctorEntity d ")
 @NamedQuery(name = "findDoctorBySpecialization", query = "SELECT d FROM DoctorEntity d WHERE d.specialization = :specialization")
-@NamedQuery(name = "findDoctorByExperience", query = "SELECT d FROM DoctorEntity d WHERE d.experience > :experience")
-@NamedQuery(name = "findDoctorByEmail", query = "SELECT d FROM DoctorEntity d WHERE d.email = :email")
-@NamedQuery(name = "findDoctorByPhoneNumber", query = "SELECT d FROM DoctorEntity d WHERE d.phoneNumber = :phoneNumber")
-
+@NamedQuery(name = "getDoctorsBySpecializationAndExperience", query = "SELECT e FROM DoctorEntity e WHERE e.specialization = :specialization AND e.experience >= :experience")
+@NamedQuery(name = "getDoctorsBySpecializationAndEmail", query = "SELECT e FROM DoctorEntity e WHERE e.specialization = :specialization AND e.email = :email")
+@NamedQuery(name = "getDoctorsByExperienceAndSpecialization", query = "SELECT e FROM DoctorEntity e WHERE e.experience >= :experience AND e.specialization = :specialization")
+@NamedQuery(name = "getDoctorByNameAndSpecialization", query = "SELECT e FROM DoctorEntity e WHERE e.doctorName = :doctorName AND e.specialization = :specialization")
 //Update
 @NamedQuery(name = "updateDoctorEmail", query = "UPDATE DoctorEntity d SET d.email = :email WHERE d.id = :id")
 @NamedQuery(name = "updateDoctorExperience", query = "UPDATE DoctorEntity d SET d.experience = :experience WHERE d.id = :id")
