@@ -10,4 +10,8 @@ public interface JobDAO {
     JobEntity findJobEntityById(Integer id);
 
     List<JobEntity> readAllJobEntity();
+    List<JobEntity> getJobsByCompanyAndLocation(String companyName, String location);
+    List<JobEntity> getJobsByTypeAndLocation(String jobType, String location);
+    JobEntity getJobByTitleAndCompany(String jobTitle, String companyName);
+    JobEntity getJobByCompanyTypeLocation(String companyName, String jobType, String location);
 }

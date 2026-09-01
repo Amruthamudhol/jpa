@@ -15,11 +15,10 @@ import javax.persistence.*;
 //read
 @NamedQuery(name = "findAllJobEntity", query = "select j from JobEntity j")
 @NamedQuery(name = "findJobByJobTitle", query = "SELECT j FROM JobEntity j WHERE j.jobTitle = :jobTitle")
-@NamedQuery(name = "findJobByCompanyName", query = "SELECT j FROM JobEntity j WHERE j.companyName = :companyName")
-@NamedQuery(name = "findJobByLocation", query = "SELECT j FROM JobEntity j WHERE j.location = :location")
-@NamedQuery(name = "findJobByJobType", query = "SELECT j FROM JobEntity j WHERE j.jobType = :jobType")
-@NamedQuery(name = "findJobBySalary", query = "SELECT j FROM JobEntity j WHERE j.salary = :salary")
-
+@NamedQuery(name = "getJobsByCompanyAndLocation", query = "SELECT e FROM JobEntity e WHERE e.companyName = :companyName AND e.location = :location")
+@NamedQuery(name = "getJobsByTypeAndLocation", query = "SELECT e FROM JobEntity e WHERE e.jobType = :jobType AND e.location = :location")
+@NamedQuery(name = "getJobByTitleAndCompany", query = "SELECT e FROM JobEntity e WHERE e.jobTitle = :jobTitle AND e.companyName = :companyName")
+@NamedQuery(name = "getJobByCompanyTypeLocation", query = "SELECT e FROM JobEntity e WHERE e.companyName = :companyName AND e.jobType = :jobType AND e.location = :location")
 //update
 @NamedQuery(name = "updateJobByJobTitle", query = "UPDATE JobEntity j SET j.jobTitle = :jobTitle WHERE j.id = :id")
 @NamedQuery(name = "updateJobByCompanyName", query = "UPDATE JobEntity j SET j.companyName = :companyName WHERE j.id = :id")

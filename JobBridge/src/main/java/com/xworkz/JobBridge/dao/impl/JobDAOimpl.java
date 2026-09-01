@@ -130,7 +130,7 @@ public class JobDAOimpl implements JobDAO {
     }
 
 
-
+//getresult
     @Override
     public List<JobEntity> readAllJobEntity() {
 
@@ -163,5 +163,127 @@ public class JobDAOimpl implements JobDAO {
         }
 
         return jobEntityList;
+    }
+
+//getresult
+    @Override
+    public List<JobEntity> getJobsByCompanyAndLocation(String companyName, String location) {
+
+        List<JobEntity> entityList = null;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+
+            Query query = em.createNamedQuery("getJobsByCompanyAndLocation");
+
+            query.setParameter("companyName", companyName);
+            query.setParameter("location", location);
+
+            entityList = query.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+
+        return entityList;
+    }
+
+    //getResultList()
+    @Override
+    public List<JobEntity> getJobsByTypeAndLocation(String jobType, String location) {
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+        EntityManager em = emf.createEntityManager();
+
+        List<JobEntity> entityList = null;
+
+        try {
+            Query query = em.createNamedQuery("getJobsByTypeAndLocation");
+
+            query.setParameter("jobType", jobType);
+            query.setParameter("location", location);
+
+            entityList = query.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            em.close();
+            emf.close();
+        }
+
+        return entityList;
+    }
+
+//getSingleResult()
+    @Override
+    public JobEntity getJobByTitleAndCompany(String jobTitle, String companyName) {
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+        EntityManager em = emf.createEntityManager();
+
+        JobEntity entity = null;
+
+        try {
+            Query query = em.createNamedQuery("getJobByTitleAndCompany");
+
+            query.setParameter("jobTitle", jobTitle);
+            query.setParameter("companyName", companyName);
+
+            Object ref = query.getSingleResult();
+
+            entity = (JobEntity) ref;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            em.close();
+            emf.close();
+        }
+
+        return entity;
+    }
+
+//getSingleResult()
+    @Override
+    public JobEntity getJobByCompanyTypeLocation(String companyName, String jobType, String location) {
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+        EntityManager em = emf.createEntityManager();
+        JobEntity entity = null;
+
+        try {
+            Query query = em.createNamedQuery("getJobByCompanyTypeLocation");
+            query.setParameter("companyName", companyName);
+            query.setParameter("jobType", jobType);
+            query.setParameter("location", location);
+
+            Object ref = query.getSingleResult();
+
+            entity = (JobEntity) ref;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            em.close();
+            emf.close();
+        }
+
+        return entity;
     }
 }

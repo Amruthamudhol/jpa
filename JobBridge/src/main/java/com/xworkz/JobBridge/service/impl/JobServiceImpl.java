@@ -119,4 +119,91 @@ public class JobServiceImpl implements JobService {
         return dtoList;
     }
 
+
+    @Override
+    public List<JobDTO> getJobsByCompanyAndLocation(String companyName, String location) {
+
+        List<JobDTO> dtoList = new ArrayList<>();
+        List<JobEntity> entityList = jobDAO.getJobsByCompanyAndLocation(companyName, location);
+
+        for (JobEntity entity : entityList) {
+
+            JobDTO dto = new JobDTO();
+
+            dto.setJobTitle(entity.getJobTitle());
+            dto.setCompanyName(entity.getCompanyName());
+            dto.setLocation(entity.getLocation());
+            dto.setJobType(entity.getJobType());
+            dto.setSalary(entity.getSalary());
+
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
+
+    @Override
+    public List<JobDTO> getJobsByTypeAndLocation(String jobType, String location) {
+
+        List<JobDTO> dtoList = new ArrayList<>();
+        List<JobEntity> entityList = jobDAO.getJobsByTypeAndLocation(jobType, location);
+        for (JobEntity entity : entityList) {
+
+            JobDTO dto = new JobDTO();
+
+            dto.setJobTitle(entity.getJobTitle());
+            dto.setCompanyName(entity.getCompanyName());
+            dto.setLocation(entity.getLocation());
+            dto.setJobType(entity.getJobType());
+            dto.setSalary(entity.getSalary());
+
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
+
+
+
+    @Override
+    public JobDTO getJobByTitleAndCompany(String jobTitle, String companyName) {
+
+        JobEntity entity = jobDAO.getJobByTitleAndCompany(jobTitle, companyName);
+        JobDTO dto = null;
+
+        if (entity != null) {
+
+            dto = new JobDTO();
+
+            dto.setJobTitle(entity.getJobTitle());
+            dto.setCompanyName(entity.getCompanyName());
+            dto.setLocation(entity.getLocation());
+            dto.setJobType(entity.getJobType());
+            dto.setSalary(entity.getSalary());
+        }
+
+        return dto;
+    }
+
+
+    @Override
+    public JobDTO getJobByCompanyTypeLocation(String companyName, String jobType, String location) {
+
+        JobEntity entity = jobDAO.getJobByCompanyTypeLocation(companyName, jobType, location);
+
+        JobDTO dto = null;
+
+        if (entity != null) {
+
+            dto = new JobDTO();
+
+            dto.setJobTitle(entity.getJobTitle());
+            dto.setCompanyName(entity.getCompanyName());
+            dto.setLocation(entity.getLocation());
+            dto.setJobType(entity.getJobType());
+            dto.setSalary(entity.getSalary());
+        }
+
+        return dto;
+    }
 }
