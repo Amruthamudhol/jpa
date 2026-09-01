@@ -9,10 +9,11 @@ import java.util.List;
 
 public class MovieRunner {
     public static void main(String[] args) {
-        MovieDTO dto = new MovieDTO("KGF Chapter 1", "Prashanth Neel", "Action", "Kannada", 8.4);
         MovieService service = new MovieServiceImpl();
+       // MovieDTO dto = new MovieDTO("KGF Chapter 1", "Prashanth Neel", "Action", "Kannada", 8.4);
+       // MovieDTO dto1= new MovieDTO("Toxic","Geetu Mohandas","Action","Multi-language", 8.0);
 
-        boolean isSaved = service.validateAndSave(dto);
+      //  boolean isSaved = service.validateAndSave(dto1);
 
 
         List<MovieDTO> movieDTOList = new ArrayList<>();
@@ -21,17 +22,33 @@ public class MovieRunner {
         movieDTOList.add(new MovieDTO("RRR", "S. S. Rajamouli", "Action", "Telugu", 8.8));
         movieDTOList.add(new MovieDTO("3 Idiots", "Rajkumar Hirani", "Comedy", "Hindi", 8.4));
 
-        String savedStatus = service.saveAll(movieDTOList);
-        System.out.println(savedStatus);
+       // String savedStatus = service.saveAll(movieDTOList);
+       // System.out.println(savedStatus);
 
 
 
-        MovieDTO dtoById = service.findMovieDTOById(1);
-        System.out.println("Found Dto is : " + dtoById);
+        //MovieDTO dtoById = service.findMovieDTOById(1);
+        //System.out.println("Found Dto is : " + dtoById);
 
         //getall
-        List<MovieDTO> movieDTOList1= service.readAllMovieDTO();
-        movieDTOList1.forEach(a -> System.out.println(a));
+      //  List<MovieDTO> movieDTOList1= service.readAllMovieDTO();
+      //  movieDTOList1.forEach(a -> System.out.println(a));
+
+       // List<MovieDTO> list = service.getMoviesByDirectorAndGenre("Rajkumar Hirani", "Comedy");
+       // list.forEach(a -> System.out.println(a));
+
+
+       // List<MovieDTO> list = service.getMoviesByGenreAndLanguage("Action", "Kannada");
+       // list.forEach(a -> System.out.println(a));
+
+
+       // MovieDTO dto2 = service.getMovieByTitleAndLanguage("Toxic", "Multi-language");
+       // System.out.println("Movie DTO : " + dto2);
+
+
+
+        MovieDTO dto = service.getMovieByDirectorAndTitle("Geetu Mohandas", "Toxic");
+        System.out.println("Movie DTO : " + dto);
     }
 
 

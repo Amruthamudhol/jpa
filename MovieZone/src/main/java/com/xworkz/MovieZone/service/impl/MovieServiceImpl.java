@@ -128,4 +128,94 @@ public class MovieServiceImpl implements MovieService {
                 ))
                 .collect(Collectors.toList());
     }
+
+
+    @Override
+    public List<MovieDTO> getMoviesByDirectorAndGenre(String director, String genre) {
+
+        List<MovieDTO> dtoList = new ArrayList<>();
+
+        List<MovieEntity> entityList = movieDAO.getMoviesByDirectorAndGenre(director, genre);
+
+        for (MovieEntity entity : entityList) {
+            MovieDTO dto = new MovieDTO();
+
+            dto.setTitle(entity.getTitle());
+            dto.setDirector(entity.getDirector());
+            dto.setGenre(entity.getGenre());
+            dto.setLanguage(entity.getLanguage());
+            dto.setRating(entity.getRating());
+
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
+
+
+
+    @Override
+    public List<MovieDTO> getMoviesByGenreAndLanguage(String genre, String language) {
+
+        List<MovieDTO> dtoList = new ArrayList<>();
+        List<MovieEntity> entityList = movieDAO.getMoviesByGenreAndLanguage(genre, language);
+
+        for (MovieEntity entity : entityList) {
+
+            MovieDTO dto = new MovieDTO();
+
+            dto.setTitle(entity.getTitle());
+            dto.setDirector(entity.getDirector());
+            dto.setGenre(entity.getGenre());
+            dto.setLanguage(entity.getLanguage());
+            dto.setRating(entity.getRating());
+
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
+
+
+    @Override
+    public MovieDTO getMovieByTitleAndLanguage(String title, String language) {
+
+        MovieEntity entity = movieDAO.getMovieByTitleAndLanguage(title, language);
+        MovieDTO dto = null;
+
+        if (entity != null) {
+
+            dto = new MovieDTO();
+
+            dto.setTitle(entity.getTitle());
+            dto.setDirector(entity.getDirector());
+            dto.setGenre(entity.getGenre());
+            dto.setLanguage(entity.getLanguage());
+            dto.setRating(entity.getRating());
+        }
+
+        return dto;
+    }
+
+
+    @Override
+    public MovieDTO getMovieByDirectorAndTitle(String director, String title) {
+
+        MovieEntity entity = movieDAO.getMovieByDirectorAndTitle(director, title);
+
+        MovieDTO dto = null;
+
+        if (entity != null) {
+
+            dto = new MovieDTO();
+
+            dto.setTitle(entity.getTitle());
+            dto.setDirector(entity.getDirector());
+            dto.setGenre(entity.getGenre());
+            dto.setLanguage(entity.getLanguage());
+            dto.setRating(entity.getRating());
+        }
+
+        return dto;
+    }
 }

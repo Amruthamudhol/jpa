@@ -8,7 +8,13 @@ import java.util.List;
 public interface MovieDAO {
     boolean save(MovieEntity entity);
     boolean saveAll(List<MovieEntity> entityList);
+
     MovieEntity findMovieEntityById(Integer id);
     List<MovieEntity> readAllMovieEntity();
+    List<MovieEntity> getMoviesByDirectorAndGenre(String director, String genre);
+
+    List<MovieEntity> getMoviesByGenreAndLanguage(String genre, String language);
+    MovieEntity getMovieByTitleAndLanguage(String title, String language);
+    MovieEntity getMovieByDirectorAndTitle(String director, String title);
 
 }

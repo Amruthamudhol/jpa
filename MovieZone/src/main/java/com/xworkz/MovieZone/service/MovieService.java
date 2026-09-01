@@ -10,6 +10,11 @@ public interface MovieService {
     List<MovieDTO> readAllMovieDTO();
 
         MovieDTO findMovieDTOById(Integer id);
+    List<MovieDTO> getMoviesByDirectorAndGenre(String director, String genre);
+    List<MovieDTO> getMoviesByGenreAndLanguage(String genre, String language);
+    MovieDTO getMovieByTitleAndLanguage(String title, String language);
+    MovieDTO getMovieByDirectorAndTitle(String director, String title);
+
 
 
 }

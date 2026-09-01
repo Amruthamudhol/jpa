@@ -125,7 +125,7 @@ public class MovieDAOimpl implements MovieDAO {
     }
 
 
-
+//getResultList()
     @Override
     public List<MovieEntity> readAllMovieEntity() {
         System.out.println("readAllMovieEntity : MovieDaoImpl");
@@ -156,4 +156,133 @@ public class MovieDAOimpl implements MovieDAO {
 
         return movieEntityList;
     }
+
+
+    //getResultList()
+    @Override
+    public List<MovieEntity> getMoviesByDirectorAndGenre(String director, String genre) {
+
+        List<MovieEntity> entityList = null;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+
+            Query query = em.createNamedQuery("getMoviesByDirectorAndGenre");
+            query.setParameter("director", director);
+            query.setParameter("genre", genre);
+
+            entityList = query.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+
+        return entityList;
+    }
+
+//getResultList()
+    @Override
+    public List<MovieEntity> getMoviesByGenreAndLanguage(String genre, String language) {
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+        EntityManager em = emf.createEntityManager();
+
+        List<MovieEntity> entityList = null;
+
+        try {
+
+            Query query = em.createNamedQuery("getMoviesByGenreAndLanguage");
+            query.setParameter("genre", genre);
+            query.setParameter("language", language);
+
+            entityList = query.getResultList();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            em.close();
+            emf.close();
+        }
+
+        return entityList;
+    }
+
+
+//getSingleResult();
+    @Override
+    public MovieEntity getMovieByTitleAndLanguage(String title, String language) {
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+        EntityManager em = emf.createEntityManager();
+        MovieEntity entity = null;
+
+        try {
+
+            Query query = em.createNamedQuery("getMovieByTitleAndLanguage");
+            query.setParameter("title", title);
+            query.setParameter("language", language);
+            Object ref = query.getSingleResult();
+            entity = (MovieEntity) ref;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            em.close();
+            emf.close();
+        }
+
+        return entity;
+    }
+
+
+    @Override
+    public MovieEntity getMovieByDirectorAndTitle(String director, String title) {
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+        EntityManager em = emf.createEntityManager();
+
+        MovieEntity entity = null;
+
+        try {
+
+            Query query = em.createNamedQuery("getMovieByDirectorAndTitle");
+            query.setParameter("director", director);
+            query.setParameter("title", title);
+
+            Object ref = query.getSingleResult();
+            entity = (MovieEntity) ref;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            em.close();
+            emf.close();
+        }
+
+        return entity;
+    }
+
 }
