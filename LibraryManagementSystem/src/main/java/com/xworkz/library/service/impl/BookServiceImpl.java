@@ -132,4 +132,73 @@ public class BookServiceImpl implements BookService {
                 .collect(Collectors.toList());
         return dtoList;
     }
+
+
+    @Override
+    public List<BookDTO> getBooksByAuthorAndCategory(String author, String category) {
+
+        List<BookDTO> dtoList = new ArrayList<>();
+
+        List<BookEntity> entityList = bookDAO.getBooksByAuthorAndCategory(author, category);
+
+        for (BookEntity entity : entityList) {
+
+            BookDTO dto = new BookDTO();
+
+            dto.setTitle(entity.getTitle());
+            dto.setAuthor(entity.getAuthor());
+            dto.setCategory(entity.getCategory());
+            dto.setPrice(entity.getPrice());
+            dto.setQuantity(entity.getQuantity());
+
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
+
+
+    @Override
+    public List<BookDTO> getBooksByCategoryAndPrice(String category, Double price) {
+
+        List<BookDTO> dtoList = new ArrayList<>();
+        List<BookEntity> entityList = bookDAO.getBooksByCategoryAndPrice(category, price);
+
+        for (BookEntity entity : entityList) {
+
+            BookDTO dto = new BookDTO();
+
+            dto.setTitle(entity.getTitle());
+            dto.setAuthor(entity.getAuthor());
+            dto.setCategory(entity.getCategory());
+            dto.setPrice(entity.getPrice());
+            dto.setQuantity(entity.getQuantity());
+
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
+
+
+    @Override
+    public BookDTO getBookByTitleAndAuthor(String title, String author) {
+
+        BookEntity entity = bookDAO.getBookByTitleAndAuthor(title, author);
+
+        BookDTO dto = null;
+
+        if (entity != null) {
+
+            dto = new BookDTO();
+
+            dto.setTitle(entity.getTitle());
+            dto.setAuthor(entity.getAuthor());
+            dto.setCategory(entity.getCategory());
+            dto.setPrice(entity.getPrice());
+            dto.setQuantity(entity.getQuantity());
+        }
+
+        return dto;
+    }
 }

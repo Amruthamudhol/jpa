@@ -15,14 +15,9 @@ import javax.persistence.*;
 //select
 @NamedQuery(name = "findAllBook", query = "select b from BookEntity b")
 @NamedQuery(name = "findByTitle", query = "select b from BookEntity b where b.title = :title")
-@NamedQuery(name = "findByAuthor", query = "select b from BookEntity b where b.author = :author")
-@NamedQuery(name = "findByCategory", query = "select b from BookEntity b where b.category = :category")
-@NamedQuery(name = "findByPrice", query = "select b from BookEntity b where b.price = :price")
-
-//update
-@NamedQuery(name = "updateBookTitle", query = "update BookEntity b set b.title = :title where b.id = :id")
-@NamedQuery(name = "updateBookPrice", query = "update BookEntity b set b.price = :price where b.id = :id")
-@NamedQuery(name = "updateBookQuantity", query = "update BookEntity b set b.quantity = :quantity where b.id = :id")
+@NamedQuery(name = "getBooksByAuthorAndCategory", query = "SELECT e FROM BookEntity e WHERE e.author = :author AND e.category = :category")
+@NamedQuery(name = "getBooksByCategoryAndPrice", query = "SELECT e FROM BookEntity e WHERE e.category = :category AND e.price <= :price")
+@NamedQuery(name = "getBookByTitleAndAuthor", query = "SELECT e FROM BookEntity e WHERE e.title = :title AND e.author = :author")
 
 //delete
 @NamedQuery(name = "deleteBook", query = "delete from BookEntity b where b.id = :id")

@@ -127,7 +127,7 @@ public class BookDAOimpl implements BookDAO {
         }
     }
 
-
+//getresult
 
     @Override
     public List<BookEntity> readAllBookEntity() {
@@ -160,5 +160,101 @@ public class BookDAOimpl implements BookDAO {
         }
 
         return bookEntityList;
+    }
+
+//getresult
+    @Override
+    public List<BookEntity> getBooksByAuthorAndCategory(String author, String category) {
+
+        List<BookEntity> entityList = null;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+
+        try {
+
+            emf = Persistence.createEntityManagerFactory("x-workz");
+            em = emf.createEntityManager();
+            Query query = em.createNamedQuery("getBooksByAuthorAndCategory");
+            query.setParameter("author", author);
+            query.setParameter("category", category);
+
+            entityList = query.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+
+            if (emf != null) {
+                emf.close();
+            }
+        }
+
+        return entityList;
+    }
+
+
+    //getresultlist
+    @Override
+    public List<BookEntity> getBooksByCategoryAndPrice(String category, Double price) {
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+        EntityManager em = emf.createEntityManager();
+        List<BookEntity> entityList = null;
+
+        try {
+
+            Query query = em.createNamedQuery("getBooksByCategoryAndPrice");
+
+            query.setParameter("category", category);
+            query.setParameter("price", price);
+
+            entityList = query.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+
+            em.close();
+            emf.close();
+        }
+
+        return entityList;
+    }
+
+    @Override
+    public BookEntity getBookByTitleAndAuthor(String title, String author) {
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+        EntityManager em = emf.createEntityManager();
+        BookEntity entity = null;
+
+        try {
+
+            Query query = em.createNamedQuery("getBookByTitleAndAuthor");
+
+            query.setParameter("title", title);
+            query.setParameter("author", author);
+
+            Object ref = query.getSingleResult();
+
+            entity = (BookEntity) ref;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            em.close();
+            emf.close();
+        }
+
+        return entity;
     }
 }

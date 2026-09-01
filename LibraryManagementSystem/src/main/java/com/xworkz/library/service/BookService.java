@@ -10,4 +10,8 @@ public interface BookService {
     BookDTO findBookDTOById(Integer id);
 
     List<BookDTO> readAllBookDTO();
+    List<BookDTO> getBooksByAuthorAndCategory(String author, String category);
+    List<BookDTO> getBooksByCategoryAndPrice(String category, Double price);
+    BookDTO getBookByTitleAndAuthor(String title, String author);
+
 }
