@@ -211,4 +211,44 @@ public class DoctorServiceImpl implements DoctorService {
 
         return dto;
     }
+
+
+    @Override
+    public String updateDoctorEmailAndPhone(Integer id, String email, Long phoneNumber) {
+
+        System.out.println("Invoking updateDoctorEmailAndPhone : Service");
+        String status = null;
+
+        if (id != null && id > 0 && email != null && phoneNumber != null) {
+            Boolean isUpdated = doctorDAO.updateDoctorEmailAndPhone(id, email, phoneNumber);
+            if (isUpdated) {
+                status = "Data Updated";
+            } else {
+                status = "Data Not Updated";
+            }
+        }
+
+        return status;
+    }
+
+
+    @Override
+    public String updateDoctorExperienceByName(String doctorName, Integer experience) {
+
+        System.out.println("Invoking updateDoctorExperienceByName : Service");
+        String status = null;
+
+        if (doctorName != null && experience != null) {
+
+            Boolean isUpdated = doctorDAO.updateDoctorExperienceByName(doctorName, experience);
+
+            if (isUpdated) {
+                status = "Data Updated";
+            } else {
+                status = "Data Not Updated";
+            }
+        }
+
+        return status;
+    }
 }

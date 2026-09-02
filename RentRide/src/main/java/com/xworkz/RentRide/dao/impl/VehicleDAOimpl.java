@@ -8,17 +8,16 @@ import java.util.Collections;
 import java.util.List;
 
 public class VehicleDAOimpl implements VehicleDAO {
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
 
     @Override
     public boolean save(VehicleEntity entity) {
 
         System.out.println("Invoking save : VehicleDAOimpl");
-        EntityManagerFactory emf = null;
         EntityManager em = null;
         EntityTransaction et = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
 
             et = em.getTransaction();
@@ -45,9 +44,6 @@ public class VehicleDAOimpl implements VehicleDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
@@ -55,12 +51,10 @@ public class VehicleDAOimpl implements VehicleDAO {
     public boolean saveAll(List<VehicleEntity> entityList) {
 
         System.out.println("Invoking saveAll : VehicleDAOImpl");
-        EntityManagerFactory emf = null;
         EntityManager em = null;
         EntityTransaction et = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();
@@ -84,9 +78,6 @@ public class VehicleDAOimpl implements VehicleDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
@@ -95,11 +86,9 @@ public class VehicleDAOimpl implements VehicleDAO {
     public VehicleEntity findVehicleEntityById(Integer id) {
 
         System.out.println("Invoking findVehicleEntityById : VehicleDAOImpl");
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             VehicleEntity entity = em.find(VehicleEntity.class, id);
             return entity;
@@ -115,9 +104,6 @@ public class VehicleDAOimpl implements VehicleDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
@@ -126,12 +112,9 @@ public class VehicleDAOimpl implements VehicleDAO {
     public List<VehicleEntity> readAllVehicleEntity() {
         System.out.println("readAllVehicleEntity : VehicleDaoImpl");
         List<VehicleEntity> vehicleEntityList = Collections.emptyList();
-
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
 
             Query query = em.createQuery("select v from VehicleEntity v");
@@ -146,9 +129,6 @@ public class VehicleDAOimpl implements VehicleDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
 
         return vehicleEntityList;
@@ -160,11 +140,9 @@ public class VehicleDAOimpl implements VehicleDAO {
         System.out.println("Invoking findByVehicleName : " + vehicleName);
 
         VehicleEntity entity = null;
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             Query query = em.createNamedQuery("getVehicleByName");
             query.setParameter("vehicleName", vehicleName);
@@ -178,9 +156,6 @@ public class VehicleDAOimpl implements VehicleDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
 
         return entity;
@@ -192,13 +167,10 @@ public class VehicleDAOimpl implements VehicleDAO {
     public List<VehicleEntity> getVehicleByBrandAndType(String brand, String vehicleType) {
 
         System.out.println("Invoking getVehicleByBrandAndType");
-        EntityManagerFactory emf = null;
         EntityManager em = null;
         List<VehicleEntity> entityList = null;
 
         try {
-
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             Query query = em.createNamedQuery("getVehicleByBrandAndType");
 
@@ -215,10 +187,6 @@ public class VehicleDAOimpl implements VehicleDAO {
             if (em != null) {
                 em.close();
             }
-
-            if (emf != null) {
-                emf.close();
-            }
         }
 
         return entityList;
@@ -232,11 +200,9 @@ public class VehicleDAOimpl implements VehicleDAO {
 
         System.out.println("Invoking getVehicleByModel : " + model + ", " + id);
         VehicleEntity entity = null;
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             Query query = em.createNamedQuery("getVehicleByModel");
 
@@ -256,9 +222,6 @@ public class VehicleDAOimpl implements VehicleDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
 
         return entity;
@@ -273,12 +236,9 @@ public class VehicleDAOimpl implements VehicleDAO {
         System.out.println("Invoking getVehicleByBrandAndModel : " + brand + ", " + model);
 
         List<VehicleEntity> entityList = null;
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             Query query = em.createNamedQuery("getVehicleByBrandAndModel");
 
@@ -295,11 +255,136 @@ public class VehicleDAOimpl implements VehicleDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
 
         return entityList;
+    }
+
+
+
+    @Override
+    public Boolean updateBrandAndModelByVehicleName(String vehicleName, String brand, String model) {
+
+        System.out.println("Invoking updateBrandAndModelByVehicleName : " + vehicleName);
+        Boolean isUpdated = false;
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+
+            et.begin();
+
+            Query query = em.createQuery("UPDATE VehicleEntity v " + "SET v.brand = :brand, " + "v.model = :model " + "WHERE v.vehicleName = :vehicleName");
+            query.setParameter("brand", brand);
+            query.setParameter("model", model);
+            query.setParameter("vehicleName", vehicleName);
+
+            int rowsUpdated = query.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                isUpdated = true;
+            }
+
+            et.commit();
+
+        } catch (PersistenceException e) {
+
+            e.printStackTrace();
+            et.rollback();
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return isUpdated;
+    }
+
+
+
+//update
+    @Override
+    public Boolean updateVehicleName(Integer id, String vehicleName) {
+        Boolean isUpdated = false;
+
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+            et.begin();
+            Query query = em.createNamedQuery("updateVehicleName");
+            query.setParameter("vehicleName", vehicleName);
+            query.setParameter("id", id);
+
+            int rowsUpdated = query.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                isUpdated = true;
+            }
+
+            et.commit();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+                et.rollback();
+
+
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return isUpdated;
+    }
+
+
+
+    @Override
+    public Boolean updateVehicleType(Integer id, String vehicleType) {
+
+        System.out.println("Invoking updateVehicleType : DAO");
+        Boolean isUpdated = false;
+
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+
+            et.begin();
+            Query query = em.createNamedQuery("updateVehicleType");
+            query.setParameter("vehicleType", vehicleType);
+            query.setParameter("id", id);
+
+            int rowsUpdated = query.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                isUpdated = true;
+            }
+
+            et.commit();
+
+        } catch (PersistenceException e) {
+
+            e.printStackTrace();
+                et.rollback();
+
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return isUpdated;
     }
 }

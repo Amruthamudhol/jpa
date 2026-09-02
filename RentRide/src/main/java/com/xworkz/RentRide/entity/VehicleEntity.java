@@ -20,13 +20,10 @@ import javax.persistence.*;
 @NamedQuery(name = "getVehicleByBrandAndModel", query = "SELECT e FROM VehicleEntity e WHERE e.brand = :brand AND e.model = :model")
 
 
-
-
-
 //update
 @NamedQuery(name = "updateVehicleName", query = "update VehicleEntity v set v.vehicleName = :vehicleName where v.id = :id")
 @NamedQuery(name = "updateVehicleType", query = "update VehicleEntity v set v.vehicleType = :vehicleType where v.id = :id")
-@NamedQuery(name = "updateRentPerDay", query = "update VehicleEntity v set v.rentPerDay = :rentPerDay where v.id = :id")
+
 
 //delete
 @NamedQuery(name = "deleteVehicleEntityById", query = "delete from VehicleEntity e where e.id = :id")

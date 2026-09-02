@@ -20,8 +20,8 @@ import javax.persistence.*;
 @NamedQuery(name = "getDoctorsByExperienceAndSpecialization", query = "SELECT e FROM DoctorEntity e WHERE e.experience >= :experience AND e.specialization = :specialization")
 @NamedQuery(name = "getDoctorByNameAndSpecialization", query = "SELECT e FROM DoctorEntity e WHERE e.doctorName = :doctorName AND e.specialization = :specialization")
 //Update
-@NamedQuery(name = "updateDoctorEmail", query = "UPDATE DoctorEntity d SET d.email = :email WHERE d.id = :id")
-@NamedQuery(name = "updateDoctorExperience", query = "UPDATE DoctorEntity d SET d.experience = :experience WHERE d.id = :id")
+@NamedQuery(name = "updateDoctorEmailAndPhone", query = "UPDATE DoctorEntity d " + "SET d.email = :email, d.phoneNumber = :phoneNumber " + "WHERE d.id = :id")
+@NamedQuery(name = "updateDoctorExperienceByName", query = "UPDATE DoctorEntity d " + "SET d.experience = :experience " + "WHERE d.doctorName = :doctorName")
 @NamedQuery(name = "updateDoctorSpecialization", query = "UPDATE DoctorEntity d SET d.specialization = :specialization WHERE d.id = :id")
 
 //delete

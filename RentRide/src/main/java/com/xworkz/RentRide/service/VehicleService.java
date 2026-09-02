@@ -14,6 +14,9 @@ public interface VehicleService {
     List<VehicleDTO> getVehicleByBrandAndType(String brand, String vehicleType);
     VehicleDTO getVehicleByModel(String model, Integer id);
     List<VehicleDTO> getVehicleByBrandAndModel(String brand, String model);
+    String updateBrandAndModelByVehicleName(String vehicleName, String brand, String model);
+    String updateVehicleName(Integer id, String vehicleName);
+    String updateVehicleType(Integer id, String vehicleType);
 
 
 }

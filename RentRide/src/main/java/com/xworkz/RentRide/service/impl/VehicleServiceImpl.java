@@ -203,4 +203,60 @@ public class VehicleServiceImpl implements VehicleService {
 
         return vehicleDTOList;
     }
+
+    @Override
+    public String updateBrandAndModelByVehicleName(String vehicleName, String brand, String model) {
+        System.out.println("Invoking updateBrandAndModelByVehicleName : Service");
+
+        String status = null;
+
+        if (vehicleName != null && brand != null && model != null) {
+
+            Boolean isUpdated = vehicleDAO.updateBrandAndModelByVehicleName(vehicleName, brand, model);
+
+            if (isUpdated) {
+                status = "Data Updated";
+            } else {
+                status = "Data Not Updated";
+            }
+        }
+
+        return status;
+    }
+
+    @Override
+    public String updateVehicleName(Integer id, String vehicleName) {
+
+        System.out.println("Invoking updateVehicleName : Service");
+        String status = null;
+        if (id != null && id > 0 && vehicleName != null) {
+            Boolean isUpdated = vehicleDAO.updateVehicleName(id, vehicleName);
+            if (isUpdated) {
+                status = "Data Updated";
+            } else {
+                status = "Data Not Updated";
+            }
+        }
+
+        return status;
+    }
+
+
+    @Override
+    public String updateVehicleType(Integer id, String vehicleType) {
+        System.out.println("Invoking updateVehicleType : Service");
+
+        String status = null;
+        if (id != null && id > 0 && vehicleType != null) {
+
+            Boolean isUpdated = vehicleDAO.updateVehicleType(id, vehicleType);
+            if (isUpdated) {
+                status = "Data Updated";
+            } else {
+                status = "Data Not Updated";
+            }
+        }
+
+        return status;
+    }
 }

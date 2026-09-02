@@ -13,4 +13,6 @@ public interface DoctorService {
     List<DoctorDTO> getDoctorsBySpecializationAndEmail(String specialization, String email);
     List<DoctorDTO> getDoctorsByExperienceAndSpecialization(Integer experience, String specialization);
     DoctorDTO getDoctorByNameAndSpecialization(String doctorName, String specialization);
+    String updateDoctorEmailAndPhone(Integer id, String email, Long phoneNumber);
+    String updateDoctorExperienceByName(String doctorName, Integer experience);
 }

@@ -9,18 +9,14 @@ import java.util.List;
 
 public class DoctorDAOimpl implements DoctorDAO {
 
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
     @Override
     public boolean save(DoctorEntity entity) {
-
         System.out.println("Invoking save : DoctorDAOimpl");
-
-        EntityManagerFactory emf = null;
         EntityManager em = null;
         EntityTransaction et = null;
 
         try {
-
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();
@@ -60,14 +56,10 @@ public class DoctorDAOimpl implements DoctorDAO {
     public boolean saveAll(List<DoctorEntity> entityList) {
 
         System.out.println("Invoking saveAll : DoctorDAOImpl");
-
-        EntityManagerFactory emf = null;
         EntityManager em = null;
         EntityTransaction et = null;
 
         try {
-
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();
@@ -92,9 +84,6 @@ public class DoctorDAOimpl implements DoctorDAO {
             if (em != null) {
                 em.close();
             }
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
@@ -103,11 +92,9 @@ public class DoctorDAOimpl implements DoctorDAO {
     public DoctorEntity findDoctorEntityById(Integer id) {
 
         System.out.println("Invoking findDoctorEntityById : DoctorDAOImpl");
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
 
             DoctorEntity entity = em.find(DoctorEntity.class, id);
@@ -123,9 +110,6 @@ public class DoctorDAOimpl implements DoctorDAO {
             if (em != null) {
                 em.close();
             }
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
@@ -136,11 +120,9 @@ public class DoctorDAOimpl implements DoctorDAO {
         System.out.println("readAllDoctorEntity : DoctorDaoImpl");
         List<DoctorEntity> doctorEntityList = Collections.emptyList();
 
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
 
             Query query = em.createQuery("select d from DoctorEntity d");
@@ -152,9 +134,6 @@ public class DoctorDAOimpl implements DoctorDAO {
             if (em != null) {
                 em.close();
             }
-            if (emf != null) {
-                emf.close();
-            }
         }
 
         return doctorEntityList;
@@ -165,12 +144,10 @@ public class DoctorDAOimpl implements DoctorDAO {
     public List<DoctorEntity> getDoctorsBySpecializationAndExperience(String specialization, Integer experience) {
 
         List<DoctorEntity> entityList = null;
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
 
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             Query query = em.createNamedQuery("getDoctorsBySpecializationAndExperience");
 
@@ -188,9 +165,6 @@ public class DoctorDAOimpl implements DoctorDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
 
         return entityList;
@@ -199,7 +173,6 @@ public class DoctorDAOimpl implements DoctorDAO {
 //getResultList();
     @Override
     public List<DoctorEntity> getDoctorsBySpecializationAndEmail(String specialization, String email) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
         EntityManager em = emf.createEntityManager();
 
         List<DoctorEntity> entityList = null;
@@ -207,7 +180,6 @@ public class DoctorDAOimpl implements DoctorDAO {
         try {
 
             Query query = em.createNamedQuery("getDoctorsBySpecializationAndEmail");
-
             query.setParameter("specialization", specialization);
             query.setParameter("email", email);
 
@@ -219,7 +191,6 @@ public class DoctorDAOimpl implements DoctorDAO {
         } finally {
 
             em.close();
-            emf.close();
         }
 
         return entityList;
@@ -229,7 +200,6 @@ public class DoctorDAOimpl implements DoctorDAO {
     @Override
     public List<DoctorEntity> getDoctorsByExperienceAndSpecialization(Integer experience, String specialization) {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
         EntityManager em = emf.createEntityManager();
         List<DoctorEntity> entityList = null;
 
@@ -248,7 +218,7 @@ public class DoctorDAOimpl implements DoctorDAO {
         } finally {
 
             em.close();
-            emf.close();
+
         }
 
         return entityList;
@@ -259,7 +229,6 @@ public class DoctorDAOimpl implements DoctorDAO {
     @Override
     public DoctorEntity getDoctorByNameAndSpecialization(String doctorName, String specialization) {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
         EntityManager em = emf.createEntityManager();
 
         DoctorEntity entity = null;
@@ -267,7 +236,6 @@ public class DoctorDAOimpl implements DoctorDAO {
         try {
 
             Query query = em.createNamedQuery("getDoctorByNameAndSpecialization");
-
             query.setParameter("doctorName", doctorName);
             query.setParameter("specialization", specialization);
 
@@ -281,9 +249,96 @@ public class DoctorDAOimpl implements DoctorDAO {
         } finally {
 
             em.close();
-            emf.close();
         }
 
         return entity;
+    }
+
+    @Override
+    public Boolean updateDoctorEmailAndPhone(Integer id, String email, Long phoneNumber) {
+        System.out.println("Invoking updateDoctorEmailAndPhone : DAO");
+
+        Boolean isUpdated = false;
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+
+            et.begin();
+
+            Query query = em.createNamedQuery("updateDoctorEmailAndPhone");
+
+            query.setParameter("email", email);
+            query.setParameter("phoneNumber", phoneNumber);
+            query.setParameter("id", id);
+
+            int rowsUpdated = query.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                isUpdated = true;
+            }
+            et.commit();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+                et.rollback();
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return isUpdated;
+    }
+
+
+
+    @Override
+    public Boolean updateDoctorExperienceByName(String doctorName, Integer experience) {
+
+        System.out.println("Invoking updateDoctorExperienceByName : DAO");
+        Boolean isUpdated = false;
+
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+
+            et.begin();
+            Query query = em.createNamedQuery("updateDoctorExperienceByName");
+
+            query.setParameter("experience", experience);
+            query.setParameter("doctorName", doctorName);
+
+            int rowsUpdated = query.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                isUpdated = true;
+            }
+
+            et.commit();
+
+        } catch (PersistenceException e) {
+
+            e.printStackTrace();
+
+            if (et != null ) {
+                et.rollback();
+            }
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return isUpdated;
     }
 }

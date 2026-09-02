@@ -39,8 +39,14 @@ public class DoctorRunner {
       //  List<DoctorDTO> list = service.getDoctorsByExperienceAndSpecialization(10, "Cardiologist");
       //list.forEach(a -> System.out.println(a));
 
-        DoctorDTO dto = service.getDoctorByNameAndSpecialization("Dr. Anjali Sharma", "Cardiologist");
-        System.out.println("Doctor DTO : " + dto);
+     //   DoctorDTO dto = service.getDoctorByNameAndSpecialization("Dr. Anjali Sharma", "Cardiologist");
+      //  System.out.println("Doctor DTO : " + dto);
+
+     //   String status = service.updateDoctorEmailAndPhone(1, "doctor@gmail.com", 9876543210L);
+     //   System.out.println("Status : " + status);
+
+        String status = service.updateDoctorExperienceByName("Dr.Amruta", 8);
+        System.out.println("Status : " + status);
 
 
     }

@@ -45,12 +45,20 @@ public class VehicleRunner {
        // list.forEach(a -> System.out.println(a));
 
 
-        VehicleDTO dto = service.getVehicleByModel("2024", 1);
-        System.out.println("Vehicle DTO : " + dto);
+       // VehicleDTO dto = service.getVehicleByModel("2024", 1);
+      //  System.out.println("Vehicle DTO : " + dto);
 
-        List<VehicleDTO> dtoList = service.getVehicleByBrandAndModel("Honda", "6G");
-        dtoList.forEach(a -> System.out.println(a));
+       // List<VehicleDTO> dtoList = service.getVehicleByBrandAndModel("Honda", "6G");
+      //  dtoList.forEach(a -> System.out.println(a));
 
+       //String status = service.updateBrandAndModelByVehicleName("Activa 6G", "Bajaj", "8G");
+       // System.out.println("Status : " + status);
+
+       // String status = service.updateVehicleName(1, "Royal Enfield");
+      //  System.out.println("Status : " + status);
+
+        String status = service.updateVehicleType(1, "Electric");
+        System.out.println("Status : " + status);
 
 
     }

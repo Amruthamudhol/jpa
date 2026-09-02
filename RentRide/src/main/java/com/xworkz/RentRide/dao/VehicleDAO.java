@@ -14,4 +14,11 @@ public interface VehicleDAO {
     List<VehicleEntity> getVehicleByBrandAndType(String brand, String vehicleType);
     VehicleEntity getVehicleByModel(String model, Integer id);
     List<VehicleEntity> getVehicleByBrandAndModel(String brand, String model);
+
+    Boolean updateBrandAndModelByVehicleName(String vehicleName, String brand, String model);
+    Boolean updateVehicleName(Integer id, String vehicleName);
+
+    Boolean updateVehicleType(Integer id, String vehicleType);
+
+
 }
