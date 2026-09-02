@@ -14,6 +14,8 @@ public interface MovieService {
     List<MovieDTO> getMoviesByGenreAndLanguage(String genre, String language);
     MovieDTO getMovieByTitleAndLanguage(String title, String language);
     MovieDTO getMovieByDirectorAndTitle(String director, String title);
+    String updateMovieGenreAndRatingByTitle(String title, String genre, Double rating);
+    String updateMovieLanguageAndRatingByDirector(String director, String language, Double rating);
 
 
 

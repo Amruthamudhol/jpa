@@ -47,8 +47,16 @@ public class MovieRunner {
 
 
 
-        MovieDTO dto = service.getMovieByDirectorAndTitle("Geetu Mohandas", "Toxic");
-        System.out.println("Movie DTO : " + dto);
+       // MovieDTO dto = service.getMovieByDirectorAndTitle("Geetu Mohandas", "Toxic");
+       // System.out.println("Movie DTO : " + dto);
+
+       // String status = service.updateMovieGenreAndRatingByTitle("RRR", "Action", 9.0);
+       // System.out.println("Status : " + status);
+
+
+        String status = service.updateMovieLanguageAndRatingByDirector("Rajkumar Hirani", "Kannada", 8.5);
+
+        System.out.println("Status : " + status);
     }
 
 

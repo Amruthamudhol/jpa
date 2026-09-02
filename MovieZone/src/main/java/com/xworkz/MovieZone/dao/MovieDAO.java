@@ -17,4 +17,7 @@ public interface MovieDAO {
     MovieEntity getMovieByTitleAndLanguage(String title, String language);
     MovieEntity getMovieByDirectorAndTitle(String director, String title);
 
+    Boolean updateMovieGenreAndRatingByTitle(String title, String genre, Double rating);
+    Boolean updateMovieLanguageAndRatingByDirector(String director, String language, Double rating);
+
 }

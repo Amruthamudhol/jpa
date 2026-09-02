@@ -19,11 +19,8 @@ import javax.persistence.*;
 @NamedQuery(name = "getMovieByTitleAndLanguage", query = "SELECT e FROM MovieEntity e WHERE e.title = :title AND e.language = :language")
 @NamedQuery(name = "getMovieByDirectorAndTitle", query = "SELECT e FROM MovieEntity e WHERE e.director = :director AND e.title = :title")
 
-//update
-@NamedQuery(name = "updateMovieTitle", query = "update MovieEntity m set m.title = :title where m.id = :id")
-@NamedQuery(name = "updateMovieDirector", query = "update MovieEntity m set m.director = :director where m.id = :id")
-@NamedQuery(name = "updateMovieRating", query = "update MovieEntity m set m.rating = :rating where m.id = :id")
-
+@NamedQuery(name = "updateMovieGenreAndRatingByTitle", query = "UPDATE MovieEntity m " + "SET m.genre = :genre, m.rating = :rating " + "WHERE m.title = :title")
+@NamedQuery(name = "updateMovieLanguageAndRatingByDirector", query = "UPDATE MovieEntity m " +"SET m.language = :language, m.rating = :rating " + "WHERE m.director = :director")
 //delete
 @NamedQuery(name = "deleteMovie", query = "delete from MovieEntity m where m.id = :id")
 @NamedQuery(name = "deleteMovieByGenre", query = "delete from MovieEntity m where m.genre = :genre")

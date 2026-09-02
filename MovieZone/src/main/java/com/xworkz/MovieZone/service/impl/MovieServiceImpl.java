@@ -202,11 +202,9 @@ public class MovieServiceImpl implements MovieService {
     public MovieDTO getMovieByDirectorAndTitle(String director, String title) {
 
         MovieEntity entity = movieDAO.getMovieByDirectorAndTitle(director, title);
-
         MovieDTO dto = null;
 
         if (entity != null) {
-
             dto = new MovieDTO();
 
             dto.setTitle(entity.getTitle());
@@ -217,5 +215,46 @@ public class MovieServiceImpl implements MovieService {
         }
 
         return dto;
+    }
+
+    @Override
+    public String updateMovieGenreAndRatingByTitle(String title, String genre, Double rating) {
+
+        System.out.println("Invoking updateMovieGenreAndRatingByTitle : Service");
+
+        String status = null;
+
+        if (title != null && genre != null && rating != null) {
+
+            Boolean isUpdated = movieDAO.updateMovieGenreAndRatingByTitle(title, genre, rating);
+
+            if (isUpdated) {
+                status = "Data Updated";
+            } else {
+                status = "Data Not Updated";
+            }
+        }
+
+        return status;
+    }
+
+
+    @Override
+    public String updateMovieLanguageAndRatingByDirector(String director, String language, Double rating) {
+
+        System.out.println("Invoking updateMovieLanguageAndRatingByDirector : Service");
+
+        String status = null;
+        if (director != null && language != null && rating != null) {
+
+            Boolean isUpdated = movieDAO.updateMovieLanguageAndRatingByDirector(director, language, rating);
+            if (isUpdated) {
+                status = "Data Updated";
+            } else {
+                status = "Data Not Updated";
+            }
+        }
+
+        return status;
     }
 }

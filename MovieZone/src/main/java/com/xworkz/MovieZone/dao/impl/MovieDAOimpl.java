@@ -8,14 +8,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class MovieDAOimpl implements MovieDAO {
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+
     @Override
     public boolean save(MovieEntity entity) {
-
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
 
             em.getTransaction().begin();
@@ -38,23 +37,16 @@ public class MovieDAOimpl implements MovieDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
     @Override
     public boolean saveAll(List<MovieEntity> entityList) {
         System.out.println("Invoking saveAll : MovieDAOImpl");
-
-        EntityManagerFactory emf = null;
         EntityManager em = null;
         EntityTransaction et = null;
 
         try {
-
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();
@@ -71,8 +63,7 @@ public class MovieDAOimpl implements MovieDAO {
         } catch (Exception e) {
 
             e.printStackTrace();
-
-            if (et != null && et.isActive()) {
+            if (et != null ) {
                 et.rollback();
             }
 
@@ -84,9 +75,6 @@ public class MovieDAOimpl implements MovieDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
@@ -96,12 +84,9 @@ public class MovieDAOimpl implements MovieDAO {
     public MovieEntity findMovieEntityById(Integer id) {
 
         System.out.println("Invoking findMovieEntityById : MovieDAOImpl");
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             MovieEntity entity = em.find(MovieEntity.class, id);
 
@@ -117,10 +102,6 @@ public class MovieDAOimpl implements MovieDAO {
             if (em != null) {
                 em.close();
             }
-
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
@@ -130,12 +111,9 @@ public class MovieDAOimpl implements MovieDAO {
     public List<MovieEntity> readAllMovieEntity() {
         System.out.println("readAllMovieEntity : MovieDaoImpl");
         List<MovieEntity> movieEntityList = Collections.emptyList();
-
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
 
             Query query = em.createQuery("select m from MovieEntity m");
@@ -148,10 +126,6 @@ public class MovieDAOimpl implements MovieDAO {
             if (em != null) {
                 em.close();
             }
-
-            if (emf != null) {
-                emf.close();
-            }
         }
 
         return movieEntityList;
@@ -163,12 +137,9 @@ public class MovieDAOimpl implements MovieDAO {
     public List<MovieEntity> getMoviesByDirectorAndGenre(String director, String genre) {
 
         List<MovieEntity> entityList = null;
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
 
             Query query = em.createNamedQuery("getMoviesByDirectorAndGenre");
@@ -185,10 +156,6 @@ public class MovieDAOimpl implements MovieDAO {
             if (em != null) {
                 em.close();
             }
-
-            if (emf != null) {
-                emf.close();
-            }
         }
 
         return entityList;
@@ -198,7 +165,6 @@ public class MovieDAOimpl implements MovieDAO {
     @Override
     public List<MovieEntity> getMoviesByGenreAndLanguage(String genre, String language) {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
         EntityManager em = emf.createEntityManager();
 
         List<MovieEntity> entityList = null;
@@ -218,7 +184,6 @@ public class MovieDAOimpl implements MovieDAO {
         } finally {
 
             em.close();
-            emf.close();
         }
 
         return entityList;
@@ -229,7 +194,6 @@ public class MovieDAOimpl implements MovieDAO {
     @Override
     public MovieEntity getMovieByTitleAndLanguage(String title, String language) {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
         EntityManager em = emf.createEntityManager();
         MovieEntity entity = null;
 
@@ -248,7 +212,6 @@ public class MovieDAOimpl implements MovieDAO {
         } finally {
 
             em.close();
-            emf.close();
         }
 
         return entity;
@@ -257,8 +220,6 @@ public class MovieDAOimpl implements MovieDAO {
 
     @Override
     public MovieEntity getMovieByDirectorAndTitle(String director, String title) {
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
         EntityManager em = emf.createEntityManager();
 
         MovieEntity entity = null;
@@ -279,10 +240,95 @@ public class MovieDAOimpl implements MovieDAO {
         } finally {
 
             em.close();
-            emf.close();
         }
 
         return entity;
     }
 
+
+
+    @Override
+    public Boolean updateMovieGenreAndRatingByTitle(String title, String genre, Double rating) {
+
+        System.out.println("Invoking updateMovieGenreAndRatingByTitle : DAO");
+
+        Boolean isUpdated = false;
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+
+            et.begin();
+            Query query = em.createNamedQuery("updateMovieGenreAndRatingByTitle");
+            query.setParameter("genre", genre);
+            query.setParameter("rating", rating);
+            query.setParameter("title", title);
+
+            int rowsUpdated = query.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                isUpdated = true;
+            }
+
+            et.commit();
+
+        } catch (PersistenceException e) {
+
+            e.printStackTrace();
+                et.rollback();
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return isUpdated;
+    }
+
+
+    @Override
+    public Boolean updateMovieLanguageAndRatingByDirector(String director, String language, Double rating) {
+
+        System.out.println("Invoking updateMovieLanguageAndRatingByDirector : DAO");
+
+        EntityManager em = null;
+        EntityTransaction et = null;
+        Boolean isUpdated = false;
+
+        try {
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+            et.begin();
+
+            Query query = em.createNamedQuery("updateMovieLanguageAndRatingByDirector");
+            query.setParameter("director", director);
+            query.setParameter("language", language);
+            query.setParameter("rating", rating);
+
+            int rowsUpdated = query.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                isUpdated = true;
+            }
+
+            et.commit();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+
+            if (et != null ) {
+                et.rollback();
+            }
+
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return isUpdated;
+    }
 }
