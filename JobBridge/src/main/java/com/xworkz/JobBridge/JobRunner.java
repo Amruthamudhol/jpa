@@ -15,12 +15,12 @@ public class JobRunner {
         JobDTO dto2 = new JobDTO("Manager", "Infosys", "Bangalore", "Full Time", 60000.0);
 
         JobService service = new JobServiceImpl();
-       boolean isSaved = service.validateAndSave(dto2);
-       if (isSaved) {
-           System.out.println("Job saved successfully");
-       } else {
-            System.out.println("Job not saved");
-        }
+      // boolean isSaved = service.validateAndSave(dto2);
+       //if (isSaved) {
+         //  System.out.println("Job saved successfully");
+      // } else {
+      //      System.out.println("Job not saved");
+      //  }
 
 
       //  List<JobDTO> jobDTOList = new ArrayList<>();
@@ -49,8 +49,18 @@ public class JobRunner {
        // JobDTO dto = service.getJobByTitleAndCompany("data analyst", "Infosys");
        //System.out.println("Job DTO : " + dto);
 
-        JobDTO dto = service.getJobByCompanyTypeLocation("Infosys", "Full Time", "Bangalore");
-        System.out.println("Job DTO : " + dto);
+       // JobDTO dto = service.getJobByCompanyTypeLocation("Infosys", "Full Time", "Bangalore");
+       // System.out.println("Job DTO : " + dto);
+
+        //String status = service.updateJobTitleAndCompanyName(1, "Full-Stack Developer", "Amazon");
+       // System.out.println("Status : " + status);
+
+        //String status = service.updateJobByCompanyName("Java developer", "Infosys");
+       // System.out.println("Status : " + status);
+
+
+        String status = service.updateSalaryByJobTitle("Java Developer", 70000.0);
+        System.out.println("Status : " + status);
     }
     }
 

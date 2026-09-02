@@ -206,4 +206,64 @@ public class JobServiceImpl implements JobService {
 
         return dto;
     }
+
+
+    @Override
+    public String updateJobTitleAndCompanyName(Integer id, String jobTitle, String companyName) {
+
+        System.out.println("Invoking updateJobTitleAndCompanyName : Service");
+
+        String status = null;
+
+        if (id != null && id > 0 && jobTitle != null && companyName != null) {
+            Boolean isUpdated = jobDAO.updateJobTitleAndCompanyName(id, jobTitle, companyName);
+
+            if (isUpdated) {
+                status = "Data Updated";
+            } else {
+                status = "Data Not Updated";
+            }
+        }
+
+        return status;
+    }
+
+
+    @Override
+    public String updateJobByCompanyName(String jobTitle, String companyName) {
+
+        System.out.println("Invoking updateJobByCompanyName : Service");
+        String status = null;
+
+        if (jobTitle != null && companyName != null) {
+            Boolean isUpdated = jobDAO.updateJobByCompanyName(jobTitle, companyName);
+
+            if (isUpdated) {
+                status = "Data Updated";
+            } else {
+                status = "Data Not Updated";
+            }
+        }
+
+        return status;
+    }
+
+    @Override
+    public String updateSalaryByJobTitle(String jobTitle, Double salary) {
+        System.out.println("Invoking updateSalaryByJobTitle : Service");
+
+        String status = null;
+
+        if (jobTitle != null && salary != null) {
+
+            Boolean isUpdated = jobDAO.updateSalaryByJobTitle(jobTitle, salary);
+            if (isUpdated) {
+                status = "Data Updated";
+            } else {
+                status = "Data Not Updated";
+            }
+        }
+
+        return status;
+    }
 }

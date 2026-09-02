@@ -14,4 +14,7 @@ public interface JobDAO {
     List<JobEntity> getJobsByTypeAndLocation(String jobType, String location);
     JobEntity getJobByTitleAndCompany(String jobTitle, String companyName);
     JobEntity getJobByCompanyTypeLocation(String companyName, String jobType, String location);
+    Boolean updateJobTitleAndCompanyName(Integer id, String jobTitle, String companyName);
+    Boolean updateJobByCompanyName(String jobTitle, String companyName);
+    Boolean updateSalaryByJobTitle(String jobTitle, Double salary);
 }

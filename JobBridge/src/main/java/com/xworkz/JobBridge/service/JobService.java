@@ -14,5 +14,8 @@ public interface JobService {
     List<JobDTO> getJobsByTypeAndLocation(String jobType, String location);
     JobDTO getJobByTitleAndCompany(String jobTitle, String companyName);
     JobDTO getJobByCompanyTypeLocation(String companyName, String jobType, String location);
+    String updateJobTitleAndCompanyName(Integer id, String jobTitle, String companyName);
+    String updateJobByCompanyName(String jobTitle, String companyName);
+    String updateSalaryByJobTitle(String jobTitle, Double salary);
 
 }

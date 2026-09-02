@@ -8,25 +8,20 @@ import java.util.Collections;
 import java.util.List;
 
 public class JobDAOimpl implements JobDAO {
-
+    private  static  final EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
     @Override
     public boolean save(JobEntity entity) {
         System.out.println("Invoking save : JobDAOimpl");
-        EntityManagerFactory emf = null;
         EntityManager em = null;
         EntityTransaction et = null;
 
         try {
-
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();
 
             em.persist(entity);
-
             et.commit();
-
             System.out.println("Job Data Saved");
 
             return true;
@@ -47,9 +42,6 @@ public class JobDAOimpl implements JobDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
@@ -58,12 +50,10 @@ public class JobDAOimpl implements JobDAO {
     public boolean saveAll(List<JobEntity> entityList) {
 
         System.out.println("Invoking saveAll : JobDAOimpl");
-        EntityManagerFactory emf = null;
         EntityManager em = null;
         EntityTransaction et = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();
@@ -89,10 +79,6 @@ public class JobDAOimpl implements JobDAO {
             if (em != null) {
                 em.close();
             }
-
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
@@ -102,12 +88,9 @@ public class JobDAOimpl implements JobDAO {
     public JobEntity findJobEntityById(Integer id) {
 
         System.out.println("Invoking findJobEntityById : JobDAOImpl");
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             JobEntity entity = em.find(JobEntity.class, id);
 
@@ -122,10 +105,6 @@ public class JobDAOimpl implements JobDAO {
             if (em != null) {
                 em.close();
             }
-
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
@@ -137,12 +116,9 @@ public class JobDAOimpl implements JobDAO {
         System.out.println("readAllJobEntity : JobDaoImpl");
 
         List<JobEntity> jobEntityList = Collections.emptyList();
-
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
 
             Query query = em.createQuery("select j from JobEntity j");
@@ -156,10 +132,6 @@ public class JobDAOimpl implements JobDAO {
             if (em != null) {
                 em.close();
             }
-
-            if (emf != null) {
-                emf.close();
-            }
         }
 
         return jobEntityList;
@@ -170,11 +142,9 @@ public class JobDAOimpl implements JobDAO {
     public List<JobEntity> getJobsByCompanyAndLocation(String companyName, String location) {
 
         List<JobEntity> entityList = null;
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
 
             Query query = em.createNamedQuery("getJobsByCompanyAndLocation");
@@ -191,10 +161,6 @@ public class JobDAOimpl implements JobDAO {
             if (em != null) {
                 em.close();
             }
-
-            if (emf != null) {
-                emf.close();
-            }
         }
 
         return entityList;
@@ -203,8 +169,6 @@ public class JobDAOimpl implements JobDAO {
     //getResultList()
     @Override
     public List<JobEntity> getJobsByTypeAndLocation(String jobType, String location) {
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
         EntityManager em = emf.createEntityManager();
 
         List<JobEntity> entityList = null;
@@ -222,7 +186,6 @@ public class JobDAOimpl implements JobDAO {
 
         } finally {
             em.close();
-            emf.close();
         }
 
         return entityList;
@@ -231,8 +194,6 @@ public class JobDAOimpl implements JobDAO {
 //getSingleResult()
     @Override
     public JobEntity getJobByTitleAndCompany(String jobTitle, String companyName) {
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
         EntityManager em = emf.createEntityManager();
 
         JobEntity entity = null;
@@ -252,7 +213,6 @@ public class JobDAOimpl implements JobDAO {
 
         } finally {
             em.close();
-            emf.close();
         }
 
         return entity;
@@ -261,8 +221,6 @@ public class JobDAOimpl implements JobDAO {
 //getSingleResult()
     @Override
     public JobEntity getJobByCompanyTypeLocation(String companyName, String jobType, String location) {
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
         EntityManager em = emf.createEntityManager();
         JobEntity entity = null;
 
@@ -281,9 +239,143 @@ public class JobDAOimpl implements JobDAO {
 
         } finally {
             em.close();
-            emf.close();
         }
 
         return entity;
     }
+
+
+    @Override
+    public Boolean updateJobTitleAndCompanyName(Integer id, String jobTitle, String companyName) {
+
+        System.out.println("Invoking updateJobTitleAndCompanyName : DAO");
+        Boolean isUpdated = false;
+
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+
+            et.begin();
+            Query query = em.createNamedQuery("updateJobTitleAndCompanyName");
+
+            query.setParameter("jobTitle", jobTitle);
+            query.setParameter("companyName", companyName);
+            query.setParameter("id", id);
+
+            int rowsUpdated = query.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                isUpdated = true;
+            }
+
+            et.commit();
+
+        } catch (PersistenceException e) {
+
+            e.printStackTrace();
+            if (et != null) {
+                et.rollback();
+            }
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return isUpdated;
+    }
+
+
+    @Override
+    public Boolean updateJobByCompanyName(String jobTitle, String companyName) {
+        System.out.println("Invoking updateJobByCompanyName : DAO");
+        Boolean isUpdated = false;
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+
+            et.begin();
+            Query query = em.createNamedQuery("updateJobByCompanyName");
+
+            query.setParameter("companyName", companyName);
+            query.setParameter("jobTitle", jobTitle);
+            int rowsUpdated = query.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                isUpdated = true;
+            }
+
+            et.commit();
+
+        } catch (PersistenceException e) {
+
+            e.printStackTrace();
+
+            if (et != null ) {
+                et.rollback();
+            }
+
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return isUpdated;
+    }
+
+    @Override
+        public Boolean updateSalaryByJobTitle(String jobTitle, Double salary) {
+
+            System.out.println("Invoking updateSalaryByJobTitle : DAO");
+            Boolean isUpdated = false;
+
+            EntityManager em = null;
+            EntityTransaction et = null;
+
+            try {
+                em = emf.createEntityManager();
+                et = em.getTransaction();
+
+                et.begin();
+
+                Query query = em.createNamedQuery("updateSalaryByJobTitle");
+
+                query.setParameter("salary", salary);
+                query.setParameter("jobTitle", jobTitle);
+                int rowsUpdated = query.executeUpdate();
+
+                System.out.println("Rows Updated : " + rowsUpdated);
+
+                if (rowsUpdated > 0) {
+                    isUpdated = true;
+                }
+
+                et.commit();
+
+            } catch (PersistenceException e) {
+
+                e.printStackTrace();
+                if (et != null) {
+                    et.rollback();
+                }
+
+            } finally {
+
+                if (em != null) {
+                    em.close();
+                }
+            }
+
+            return isUpdated;
+        }
+
 }

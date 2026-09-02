@@ -20,9 +20,9 @@ import javax.persistence.*;
 @NamedQuery(name = "getJobByTitleAndCompany", query = "SELECT e FROM JobEntity e WHERE e.jobTitle = :jobTitle AND e.companyName = :companyName")
 @NamedQuery(name = "getJobByCompanyTypeLocation", query = "SELECT e FROM JobEntity e WHERE e.companyName = :companyName AND e.jobType = :jobType AND e.location = :location")
 //update
-@NamedQuery(name = "updateJobByJobTitle", query = "UPDATE JobEntity j SET j.jobTitle = :jobTitle WHERE j.id = :id")
-@NamedQuery(name = "updateJobByCompanyName", query = "UPDATE JobEntity j SET j.companyName = :companyName WHERE j.id = :id")
-@NamedQuery(name = "updateJobByLocation", query = "UPDATE JobEntity j SET j.location = :location WHERE j.id = :id")
+@NamedQuery(name = "updateJobTitleAndCompanyName", query = "UPDATE JobEntity j " + "SET j.jobTitle = :jobTitle, j.companyName = :companyName " + "WHERE j.id = :id")
+@NamedQuery(name = "updateJobByCompanyName", query = "UPDATE JobEntity j " + "SET j.companyName = :companyName " + "WHERE j.jobTitle = :jobTitle")
+@NamedQuery(name = "updateSalaryByJobTitle", query = "UPDATE JobEntity j " + "SET j.salary = :salary " + "WHERE j.jobTitle = :jobTitle")
 
 //delete
 @NamedQuery(name = "deleteJobByJobTitle", query = "DELETE FROM JobEntity j WHERE j.jobTitle = :jobTitle")
