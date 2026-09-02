@@ -8,16 +8,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class BookDAOimpl implements BookDAO {
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
+
     @Override
     public boolean save(BookEntity entity) {
-
-        EntityManagerFactory emf = null;
         EntityManager em = null;
         EntityTransaction et = null;
 
         try {
-
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             et = em.getTransaction();// TCL
             et.begin();
@@ -43,10 +41,6 @@ public class BookDAOimpl implements BookDAO {
             if (em != null) {
                 em.close();
             }
-
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
@@ -56,13 +50,10 @@ public class BookDAOimpl implements BookDAO {
     public boolean saveAll(List<BookEntity> entityList) {
 
         System.out.println("Invoking saveAll : BookDAOImpl");
-
-        EntityManagerFactory emf = null;
         EntityManager em = null;
         EntityTransaction et = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();
@@ -90,9 +81,6 @@ public class BookDAOimpl implements BookDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
@@ -102,12 +90,9 @@ public class BookDAOimpl implements BookDAO {
     public BookEntity findBookEntityById(Integer id) {
 
         System.out.println("Invoking findBookEntityById : BookDAOImpl");
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             BookEntity entity = em.find(BookEntity.class, id);
             return entity;
@@ -121,9 +106,6 @@ public class BookDAOimpl implements BookDAO {
             if (em != null) {
                 em.close();
             }
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 
@@ -134,12 +116,9 @@ public class BookDAOimpl implements BookDAO {
 
         System.out.println("readAllBookEntity : BookDaoImpl");
         List<BookEntity> bookEntityList = Collections.emptyList();
-
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             Query query = em.createQuery("select b from BookEntity b");
 
@@ -154,9 +133,6 @@ public class BookDAOimpl implements BookDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
 
         return bookEntityList;
@@ -167,12 +143,9 @@ public class BookDAOimpl implements BookDAO {
     public List<BookEntity> getBooksByAuthorAndCategory(String author, String category) {
 
         List<BookEntity> entityList = null;
-        EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-
-            emf = Persistence.createEntityManagerFactory("x-workz");
             em = emf.createEntityManager();
             Query query = em.createNamedQuery("getBooksByAuthorAndCategory");
             query.setParameter("author", author);
@@ -189,9 +162,6 @@ public class BookDAOimpl implements BookDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
 
         return entityList;
@@ -202,7 +172,6 @@ public class BookDAOimpl implements BookDAO {
     @Override
     public List<BookEntity> getBooksByCategoryAndPrice(String category, Double price) {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
         EntityManager em = emf.createEntityManager();
         List<BookEntity> entityList = null;
 
@@ -221,7 +190,6 @@ public class BookDAOimpl implements BookDAO {
         } finally {
 
             em.close();
-            emf.close();
         }
 
         return entityList;
@@ -229,8 +197,6 @@ public class BookDAOimpl implements BookDAO {
 
     @Override
     public BookEntity getBookByTitleAndAuthor(String title, String author) {
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("x-workz");
         EntityManager em = emf.createEntityManager();
         BookEntity entity = null;
 
@@ -252,9 +218,94 @@ public class BookDAOimpl implements BookDAO {
         } finally {
 
             em.close();
-            emf.close();
         }
 
         return entity;
+    }
+
+
+    @Override
+    public Boolean updateBookPriceByTitle(String title, Double price) {
+
+        System.out.println("Invoking updateBookPriceByTitle : DAO");
+        Boolean isUpdated = false;
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+
+            et.begin();
+            Query query = em.createNamedQuery("updateBookPriceByTitle");
+            query.setParameter("price", price);
+            query.setParameter("title", title);
+
+            int rowsUpdated = query.executeUpdate();
+
+            System.out.println("Rows Updated : " + rowsUpdated);
+
+            if (rowsUpdated > 0) {
+                isUpdated = true;
+            }
+
+            et.commit();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+                et.rollback();
+
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return isUpdated;
+    }
+
+    @Override
+    public Boolean updateBookQuantityByAuthor(String author, Integer quantity) {
+
+        System.out.println("Invoking updateBookQuantityByAuthor : DAO");
+        Boolean isUpdated = false;
+
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+
+            et.begin();
+            Query query = em.createNamedQuery("updateBookQuantityByAuthor");
+
+            query.setParameter("quantity", quantity);
+            query.setParameter("author", author);
+
+            int rowsUpdated = query.executeUpdate();
+
+            System.out.println("Rows Updated : " + rowsUpdated);
+
+            if (rowsUpdated > 0) {
+                isUpdated = true;
+            }
+
+            et.commit();
+
+        } catch (PersistenceException e) {
+
+            e.printStackTrace();
+                et.rollback();
+
+
+        } finally {
+
+            if (em != null) {
+                em.close();
+            }
+        }
+
+        return isUpdated;
     }
 }

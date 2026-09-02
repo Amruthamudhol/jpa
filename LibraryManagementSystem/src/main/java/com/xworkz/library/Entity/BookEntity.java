@@ -19,6 +19,8 @@ import javax.persistence.*;
 @NamedQuery(name = "getBooksByCategoryAndPrice", query = "SELECT e FROM BookEntity e WHERE e.category = :category AND e.price <= :price")
 @NamedQuery(name = "getBookByTitleAndAuthor", query = "SELECT e FROM BookEntity e WHERE e.title = :title AND e.author = :author")
 
+@NamedQuery(name = "updateBookQuantityByAuthor", query = "UPDATE BookEntity b " + "SET b.quantity = :quantity " + "WHERE b.author = :author")
+@NamedQuery(name = "updateBookPriceByTitle", query = "UPDATE BookEntity b " + "SET b.price = :price " + "WHERE b.title = :title")
 //delete
 @NamedQuery(name = "deleteBook", query = "delete from BookEntity b where b.id = :id")
 @NamedQuery(name = "updateBookPrice", query = "update BookEntity b set b.price = :price where b.id = :id")

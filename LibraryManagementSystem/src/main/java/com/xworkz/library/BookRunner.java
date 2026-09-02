@@ -42,9 +42,14 @@ public class BookRunner {
         //List<BookDTO> list1 = service.getBooksByCategoryAndPrice("Programming", 500.0);
        // list1.forEach(a -> System.out.println(a));
 
-        BookDTO dto1 = service.getBookByTitleAndAuthor("The Alchemist", "Paulo Coelho");
-       System.out.println("Book DTO : " + dto1);
+       // BookDTO dto1 = service.getBookByTitleAndAuthor("The Alchemist", "Paulo Coelho");
+     //  System.out.println("Book DTO : " + dto1);
 
+       // String status = service.updateBookPriceByTitle("Java Programming", 599.0);
+      //  System.out.println("Status : " + status);
+
+        String status = service.updateBookQuantityByAuthor("Joshua Bloch", 25);
+        System.out.println("Status : " + status);
     }
 
 }

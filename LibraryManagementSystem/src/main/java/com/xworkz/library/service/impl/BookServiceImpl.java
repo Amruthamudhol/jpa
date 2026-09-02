@@ -201,4 +201,42 @@ public class BookServiceImpl implements BookService {
 
         return dto;
     }
+
+    @Override
+    public String updateBookPriceByTitle(String title, Double price) {
+
+        System.out.println("Invoking updateBookPriceByTitle : Service");
+
+        String status = null;
+        if (title != null && price != null) {
+
+            Boolean isUpdated = bookDAO.updateBookPriceByTitle(title, price);
+            if (isUpdated) {
+                status = "Data Updated";
+            } else {
+                status = "Data Not Updated";
+            }
+        }
+
+        return status;
+    }
+
+
+    @Override
+    public String updateBookQuantityByAuthor(String author, Integer quantity) {
+        System.out.println("Invoking updateBookQuantityByAuthor : Service");
+
+        String status = null;
+
+        if (author != null && quantity != null) {
+            Boolean isUpdated = bookDAO.updateBookQuantityByAuthor(author, quantity);
+            if (isUpdated) {
+                status = "Data Updated";
+            } else {
+                status = "Data Not Updated";
+            }
+        }
+
+        return status;
+    }
 }
