@@ -17,6 +17,9 @@ public interface VehicleService {
     String updateBrandAndModelByVehicleName(String vehicleName, String brand, String model);
     String updateVehicleName(Integer id, String vehicleName);
     String updateVehicleType(Integer id, String vehicleType);
+    List<String> getBrands();
+
+    List<Object> getModels();
 
 
 }

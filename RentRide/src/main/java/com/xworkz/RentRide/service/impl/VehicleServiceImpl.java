@@ -7,6 +7,7 @@ import com.xworkz.RentRide.entity.VehicleEntity;
 import com.xworkz.RentRide.service.VehicleService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -258,5 +259,32 @@ public class VehicleServiceImpl implements VehicleService {
         }
 
         return status;
+    }
+
+    @Override
+    public List<String> getBrands() {
+
+        System.out.println("getBrands : Service");
+        List<String> brands = vehicleDAO.getBrands();
+
+        if (brands != null) {
+            return brands;
+        }
+
+        return Collections.emptyList();
+    }
+
+
+    @Override
+    public List<Object> getModels() {
+
+        System.out.println("getModels : Service");
+        List<Object> models = vehicleDAO.getModels();
+
+        if (models != null) {
+            return models;
+        }
+
+        return Collections.emptyList();
     }
 }

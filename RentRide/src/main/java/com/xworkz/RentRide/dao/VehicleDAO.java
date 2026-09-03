@@ -19,6 +19,9 @@ public interface VehicleDAO {
     Boolean updateVehicleName(Integer id, String vehicleName);
 
     Boolean updateVehicleType(Integer id, String vehicleType);
+    List<String> getBrands();
+
+    List<Object> getModels();
 
 
 }

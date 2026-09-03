@@ -387,4 +387,41 @@ public class VehicleDAOimpl implements VehicleDAO {
 
         return isUpdated;
     }
+
+
+    @Override
+    public List<String> getBrands() {
+        System.out.println("getBrands : DAO");
+        List<String> brands = Collections.emptyList();
+
+        try {
+
+            brands = emf.createEntityManager()
+                    .createQuery("select v.brand from VehicleEntity v")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return brands;
+    }
+
+    @Override
+    public List<Object> getModels() {
+
+        System.out.println("getModels : DAO");
+        List<Object> models = Collections.emptyList();
+        try {
+
+            models = emf.createEntityManager()
+                    .createQuery("select v.model from VehicleEntity v")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return models;
+    }
 }
