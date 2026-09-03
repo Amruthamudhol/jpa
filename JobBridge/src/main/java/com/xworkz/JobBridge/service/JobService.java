@@ -17,5 +17,7 @@ public interface JobService {
     String updateJobTitleAndCompanyName(Integer id, String jobTitle, String companyName);
     String updateJobByCompanyName(String jobTitle, String companyName);
     String updateSalaryByJobTitle(String jobTitle, Double salary);
+    List<String> getJobTitles();
+    List<Object> getCompanyNames();
 
 }

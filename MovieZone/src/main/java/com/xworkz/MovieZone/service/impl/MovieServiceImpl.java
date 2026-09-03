@@ -7,6 +7,7 @@ import com.xworkz.MovieZone.entity.MovieEntity;
 import com.xworkz.MovieZone.service.MovieService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -256,5 +257,31 @@ public class MovieServiceImpl implements MovieService {
         }
 
         return status;
+    }
+
+
+    @Override
+    public List<String> getTitles() {
+
+        System.out.println("getTitles : Service");
+        List<String> titles = movieDAO.getTitles();
+
+        if (titles != null) {
+            return titles;
+        }
+
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Object> getLanguages() {
+        System.out.println("getLanguages : Service");
+        List<Object> languages = movieDAO.getLanguages();
+
+        if (languages != null) {
+            return languages;
+        }
+
+        return Collections.emptyList();
     }
 }

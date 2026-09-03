@@ -54,9 +54,19 @@ public class MovieRunner {
        // System.out.println("Status : " + status);
 
 
-        String status = service.updateMovieLanguageAndRatingByDirector("Rajkumar Hirani", "Kannada", 8.5);
+      //  String status = service.updateMovieLanguageAndRatingByDirector("Rajkumar Hirani", "Kannada", 8.5);
+    //    System.out.println("Status : " + status);
 
-        System.out.println("Status : " + status);
+
+        //List<String> titles = service.getTitles();
+          //  System.out.println(titles);
+
+
+
+        List<Object> languages = service.getLanguages();
+        for (Object language : languages) {
+            System.out.println(language);
+        }
     }
 
 

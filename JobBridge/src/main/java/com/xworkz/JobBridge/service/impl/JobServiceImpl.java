@@ -7,6 +7,7 @@ import com.xworkz.JobBridge.entity.JobEntity;
 import com.xworkz.JobBridge.service.JobService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -265,5 +266,29 @@ public class JobServiceImpl implements JobService {
         }
 
         return status;
+    }
+
+    @Override
+    public List<String> getJobTitles() {
+        System.out.println("getJobTitles : Service");
+        List<String> jobTitles = jobDAO.getJobTitles();
+
+        if (jobTitles != null) {
+            return jobTitles;
+        }
+
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Object> getCompanyNames() {
+        System.out.println("getCompanyNames : Service");
+        List<Object> companyNames = jobDAO.getCompanyNames();
+
+        if (companyNames != null) {
+            return companyNames;
+        }
+
+        return Collections.emptyList();
     }
 }

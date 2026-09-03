@@ -378,4 +378,40 @@ public class JobDAOimpl implements JobDAO {
             return isUpdated;
         }
 
+
+    @Override
+    public List<String> getJobTitles() {
+        System.out.println("getJobTitles : DAO");
+        List<String> jobTitles = Collections.emptyList();
+
+        try {
+            jobTitles = emf.createEntityManager()
+                    .createQuery("select j.jobTitle from JobEntity j")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return jobTitles;
+    }
+
+    @Override
+    public List<Object> getCompanyNames() {
+        System.out.println("getCompanyNames : DAO");
+        List<Object> companyNames = Collections.emptyList();
+
+        try {
+
+            companyNames = emf.createEntityManager()
+                    .createQuery("select j.companyName from JobEntity j")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return companyNames;
+    }
+
 }

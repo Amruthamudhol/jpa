@@ -331,4 +331,41 @@ public class MovieDAOimpl implements MovieDAO {
 
         return isUpdated;
     }
+
+
+    @Override
+    public List<String> getTitles() {
+        System.out.println("getTitles : DAO");
+        List<String> titles = Collections.emptyList();
+
+        try {
+
+            titles = emf.createEntityManager()
+                    .createQuery("select m.title from MovieEntity m")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return titles;
+    }
+
+
+    @Override
+    public List<Object> getLanguages() {
+        System.out.println("getLanguages : DAO");
+        List<Object> languages = Collections.emptyList();
+
+        try {
+            languages = emf.createEntityManager()
+                    .createQuery("select m.language from MovieEntity m")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return languages;
+    }
 }

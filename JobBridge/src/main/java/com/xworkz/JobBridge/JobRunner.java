@@ -59,8 +59,17 @@ public class JobRunner {
        // System.out.println("Status : " + status);
 
 
-        String status = service.updateSalaryByJobTitle("Java Developer", 70000.0);
-        System.out.println("Status : " + status);
+      //  String status = service.updateSalaryByJobTitle("Java Developer", 70000.0);
+       // System.out.println("Status : " + status);
+
+       // List<String> jobTitles = service.getJobTitles();
+        //    System.out.println(jobTitles);
+
+        List<Object> companyNames = service.getCompanyNames();
+        for (Object companyName : companyNames) {
+            System.out.println(companyName);
+        }
+
     }
     }
 

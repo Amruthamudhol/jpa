@@ -17,6 +17,9 @@ public interface MovieService {
     String updateMovieGenreAndRatingByTitle(String title, String genre, Double rating);
     String updateMovieLanguageAndRatingByDirector(String director, String language, Double rating);
 
+    List<String> getTitles();
+    List<Object> getLanguages();
+
 
 
 }

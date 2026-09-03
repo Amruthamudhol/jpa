@@ -17,4 +17,6 @@ public interface JobDAO {
     Boolean updateJobTitleAndCompanyName(Integer id, String jobTitle, String companyName);
     Boolean updateJobByCompanyName(String jobTitle, String companyName);
     Boolean updateSalaryByJobTitle(String jobTitle, Double salary);
+    List<String> getJobTitles();
+    List<Object> getCompanyNames();
 }

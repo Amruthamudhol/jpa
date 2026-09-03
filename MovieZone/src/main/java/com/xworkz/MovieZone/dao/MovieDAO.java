@@ -20,4 +20,7 @@ public interface MovieDAO {
     Boolean updateMovieGenreAndRatingByTitle(String title, String genre, Double rating);
     Boolean updateMovieLanguageAndRatingByDirector(String director, String language, Double rating);
 
+    List<String> getTitles();
+    List<Object> getLanguages();
+
 }
