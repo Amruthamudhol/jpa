@@ -15,4 +15,8 @@ public interface DoctorService {
     DoctorDTO getDoctorByNameAndSpecialization(String doctorName, String specialization);
     String updateDoctorEmailAndPhone(Integer id, String email, Long phoneNumber);
     String updateDoctorExperienceByName(String doctorName, Integer experience);
+    List<String> getDoctorNames();
+    List<Long> getPhoneNumbers();
+    List<Object> getEmails();
+
 }

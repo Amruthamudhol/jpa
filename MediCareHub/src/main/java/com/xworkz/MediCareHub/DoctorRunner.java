@@ -45,10 +45,20 @@ public class DoctorRunner {
      //   String status = service.updateDoctorEmailAndPhone(1, "doctor@gmail.com", 9876543210L);
      //   System.out.println("Status : " + status);
 
-        String status = service.updateDoctorExperienceByName("Dr.Amruta", 8);
-        System.out.println("Status : " + status);
+        //String status = service.updateDoctorExperienceByName("Dr.Amruta", 8);
+       // System.out.println("Status : " + status);
+
+      //  List<String> names = service.getDoctorNames();
+       // System.out.println(names);
+
+      //  List<Long> phoneNumbers = service.getPhoneNumbers();
+      //  System.out.println(phoneNumbers);
 
 
+        List<Object> emails = service.getEmails();
+        for (Object email : emails) {
+            System.out.println(email);
+        }
     }
 
 }

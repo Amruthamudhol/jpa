@@ -16,4 +16,7 @@ public interface DoctorDAO {
     DoctorEntity getDoctorByNameAndSpecialization(String doctorName, String specialization);
     Boolean updateDoctorEmailAndPhone(Integer id, String email, Long phoneNumber);
     Boolean updateDoctorExperienceByName(String doctorName, Integer experience);
+    List<String> getDoctorNames();
+    List<Long> getPhoneNumbers();
+    List<Object> getEmails();
 }

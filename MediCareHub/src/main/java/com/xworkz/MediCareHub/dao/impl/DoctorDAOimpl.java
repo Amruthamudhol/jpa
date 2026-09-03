@@ -341,4 +341,67 @@ public class DoctorDAOimpl implements DoctorDAO {
 
         return isUpdated;
     }
+    @Override
+    public List<String> getDoctorNames() {
+
+        System.out.println("getDoctorNames : DAO");
+
+        EntityManager em = emf.createEntityManager();
+
+        List<String> names = Collections.emptyList();
+
+        try {
+
+            names = em.createQuery(
+                    "select d.doctorName from DoctorEntity d").getResultList();
+        } catch (PersistenceException e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            em.close();
+        }
+
+        return names;
+    }
+
+    @Override
+    public List<Long> getPhoneNumbers() {
+
+        System.out.println("getPhoneNumbers : DAO");
+        List<Long> phoneNumbers = Collections.emptyList();
+
+        try {
+
+            phoneNumbers = emf.createEntityManager()
+                    .createQuery(
+                            "select d.phoneNumber from DoctorEntity d")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return phoneNumbers;
+    }
+
+
+    @Override
+    public List<Object> getEmails() {
+
+        System.out.println("getEmails : DAO");
+        List<Object> emails = Collections.emptyList();
+
+        try {
+
+            emails = emf.createEntityManager()
+                    .createQuery("select d.email from DoctorEntity d")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+        return emails;
+    }
 }

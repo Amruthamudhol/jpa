@@ -7,15 +7,14 @@ import com.xworkz.MediCareHub.entity.DoctorEntity;
 import com.xworkz.MediCareHub.service.DoctorService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class DoctorServiceImpl implements DoctorService {
     DoctorDAO doctorDAO = new DoctorDAOimpl();
-
     @Override
     public boolean validateAndSave(DoctorDTO dto) {
-
         System.out.println("Invoking validateAndSave : DoctorServiceImpl");
         boolean isSaved = false;
 
@@ -251,4 +250,41 @@ public class DoctorServiceImpl implements DoctorService {
 
         return status;
     }
+
+    @Override
+    public List<String> getDoctorNames() {
+
+        System.out.println("getDoctorNames : Service");
+
+        List<String> foundNames = doctorDAO.getDoctorNames();
+
+        if (foundNames != null) {
+            return foundNames;
+        }
+
+        return Collections.emptyList();
+    }
+    @Override
+    public List<Long> getPhoneNumbers() {
+        System.out.println("getPhoneNumbers : Service");
+        List<Long> phoneNumbers = doctorDAO.getPhoneNumbers();
+        if (phoneNumbers != null) {
+            return phoneNumbers;
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Object> getEmails() {
+        System.out.println("getEmails : Service");
+        List<Object> emails = doctorDAO.getEmails();
+
+        if (emails != null) {
+            return emails;
+        }
+
+        return Collections.emptyList();
+    }
+
+
 }
