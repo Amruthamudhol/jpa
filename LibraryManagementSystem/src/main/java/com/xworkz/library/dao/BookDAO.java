@@ -14,4 +14,6 @@ public interface BookDAO {
     BookEntity getBookByTitleAndAuthor(String title, String author);
     Boolean updateBookPriceByTitle(String title, Double price);
     Boolean updateBookQuantityByAuthor(String author, Integer quantity);
+    List<String> getAuthors();
+    List<Object> getCategories();
 }

@@ -308,4 +308,43 @@ public class BookDAOimpl implements BookDAO {
 
         return isUpdated;
     }
+
+
+    @Override
+    public List<String> getAuthors() {
+        System.out.println("getAuthors : DAO");
+        List<String> authors = Collections.emptyList();
+
+        try {
+
+            authors = emf.createEntityManager()
+                    .createQuery("select b.author from BookEntity b")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return authors;
+    }
+
+
+    @Override
+    public List<Object> getCategories() {
+
+        System.out.println("getCategories : DAO");
+        List<Object> categories = Collections.emptyList();
+
+        try {
+
+            categories = emf.createEntityManager()
+                    .createQuery("select b.category from BookEntity b")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return categories;
+    }
 }

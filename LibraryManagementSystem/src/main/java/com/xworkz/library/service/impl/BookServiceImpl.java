@@ -7,6 +7,7 @@ import com.xworkz.library.dto.BookDTO;
 import com.xworkz.library.service.BookService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -238,5 +239,29 @@ public class BookServiceImpl implements BookService {
         }
 
         return status;
+    }
+
+
+    @Override
+    public List<String> getAuthors() {
+        System.out.println("getAuthors : Service");
+        List<String> authors = bookDAO.getAuthors();
+
+        if (authors != null) {
+            return authors;
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Object> getCategories() {
+        System.out.println("getCategories : Service");
+        List<Object> categories = bookDAO.getCategories();
+
+        if (categories != null) {
+            return categories;
+        }
+
+        return Collections.emptyList();
     }
 }

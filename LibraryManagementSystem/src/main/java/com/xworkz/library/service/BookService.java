@@ -17,4 +17,7 @@ public interface BookService {
     String updateBookPriceByTitle(String title, Double price);
     String updateBookQuantityByAuthor(String author, Integer quantity);
 
+    List<String> getAuthors();
+    List<Object> getCategories();
+
 }

@@ -48,8 +48,17 @@ public class BookRunner {
        // String status = service.updateBookPriceByTitle("Java Programming", 599.0);
       //  System.out.println("Status : " + status);
 
-        String status = service.updateBookQuantityByAuthor("Joshua Bloch", 25);
-        System.out.println("Status : " + status);
+       // String status = service.updateBookQuantityByAuthor("Joshua Bloch", 25);
+     //   System.out.println("Status : " + status);
+
+
+       //
+
+        List<Object> categories = service.getCategories();
+        for (Object category : categories) {
+            System.out.println(category);
+        }
+
     }
 
 }
