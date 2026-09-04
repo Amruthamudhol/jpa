@@ -4,6 +4,8 @@ import com.xworkz.JobBridge.dao.JobDAO;
 import com.xworkz.JobBridge.entity.JobEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -414,4 +416,43 @@ public class JobDAOimpl implements JobDAO {
         return companyNames;
     }
 
+    @Override
+    public List<Object[]> getJobTitleAndCompanyName() {
+        System.out.println("getJobTitleAndCompanyName : DAO");
+        List<Object[]> jobs = Collections.emptyList();
+        try {
+
+            jobs = emf.createEntityManager()
+                    .createQuery("select j.jobTitle, j.companyName from JobEntity j")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return jobs;
+    }
+
+
+    @Override
+    public List<List<Object>> getJobTitleAndJobType() {
+        System.out.println("getJobTitleAndJobType : DAO");
+
+        List<Object[]> result = Collections.emptyList();
+        try {
+            result = emf.createEntityManager()
+                    .createQuery("select j.jobTitle, j.jobType from JobEntity j")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        List<List<Object>> jobs = new ArrayList<>();
+        for (Object[] obj : result) {
+            jobs.add(Arrays.asList(obj));
+        }
+
+        return jobs;
+    }
 }

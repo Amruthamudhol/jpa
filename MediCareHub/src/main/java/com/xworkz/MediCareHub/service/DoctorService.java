@@ -22,4 +22,5 @@ public interface DoctorService {
     List<List<Object>> getDoctorNameAndEmail();
 
 
+
 }

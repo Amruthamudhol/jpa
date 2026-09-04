@@ -65,9 +65,21 @@ public class JobRunner {
        // List<String> jobTitles = service.getJobTitles();
         //    System.out.println(jobTitles);
 
-        List<Object> companyNames = service.getCompanyNames();
-        for (Object companyName : companyNames) {
-            System.out.println(companyName);
+    //    List<Object> companyNames = service.getCompanyNames();
+    //    for (Object companyName : companyNames) {
+    //        System.out.println(companyName);
+     //   }
+        List<Object[]> jobs = service.getJobTitleAndCompanyName();
+        for (Object[] job : jobs) {
+            System.out.println("Job Title: " + job[0]);
+            System.out.println("Company Name: " + job[1]);
+        }
+
+        List<List<Object>> jobs1= service.getJobTitleAndJobType();
+        for (List<Object> job : jobs1) {
+            System.out.println("Job Title : " + job.get(0));
+            System.out.println("Job Type  : " + job.get(1));
+            System.out.println("----------------------");
         }
 
     }

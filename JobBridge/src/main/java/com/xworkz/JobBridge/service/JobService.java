@@ -19,5 +19,7 @@ public interface JobService {
     String updateSalaryByJobTitle(String jobTitle, Double salary);
     List<String> getJobTitles();
     List<Object> getCompanyNames();
+    List<Object[]> getJobTitleAndCompanyName();
+    List<List<Object>> getJobTitleAndJobType();
 
 }

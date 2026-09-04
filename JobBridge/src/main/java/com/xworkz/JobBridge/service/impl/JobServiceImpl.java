@@ -291,4 +291,28 @@ public class JobServiceImpl implements JobService {
 
         return Collections.emptyList();
     }
+
+    @Override
+    public List<Object[]> getJobTitleAndCompanyName() {
+
+        System.out.println("getJobTitleAndCompanyName : Service");
+        List<Object[]> jobs = jobDAO.getJobTitleAndCompanyName();
+        if (jobs != null) {
+            return jobs;
+        }
+        return Collections.emptyList();
+    }
+
+
+    @Override
+    public List<List<Object>> getJobTitleAndJobType() {
+        System.out.println("getJobTitleAndJobType : Service");
+        List<List<Object>> jobs = jobDAO.getJobTitleAndJobType();
+
+        if (jobs != null) {
+            return jobs;
+        }
+
+        return Collections.emptyList();
+    }
 }
