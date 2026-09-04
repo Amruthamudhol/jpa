@@ -4,6 +4,8 @@ import com.xworkz.MovieZone.dao.MovieDAO;
 import com.xworkz.MovieZone.entity.MovieEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -367,5 +369,47 @@ public class MovieDAOimpl implements MovieDAO {
         }
 
         return languages;
+    }
+
+
+    @Override
+    public List<Object[]> getTitleDirectorAndGenre() {
+        System.out.println("getTitleDirectorAndGenre : DAO");
+        List<Object[]> movies = Collections.emptyList();
+
+        try {
+
+            movies = emf.createEntityManager()
+                    .createQuery("select m.title, m.director, m.genre from MovieEntity m")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return movies;
+    }
+
+
+    @Override
+    public List<List<Object>> getTitleAndLanguage() {
+        System.out.println("getTitleAndLanguage : DAO");
+        List<List<Object>> movies = new ArrayList<>();
+
+        try {
+
+            List<Object[]> result = emf.createEntityManager()
+                    .createQuery("select m.title, m.language from MovieEntity m")
+                    .getResultList();
+
+            for (Object[] movie : result) {
+                movies.add(Arrays.asList(movie));
+            }
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return movies;
     }
 }

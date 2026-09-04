@@ -67,6 +67,21 @@ public class MovieRunner {
         for (Object language : languages) {
             System.out.println(language);
         }
+
+
+     //   List<Object[]> movies = service.getTitleDirectorAndGenre();
+     //   for (Object[] movie : movies) {
+    //        System.out.println("Title: " + movie[0]);
+     //       System.out.println("Director: " + movie[1]);
+     //       System.out.println("Genre: " + movie[2]);
+     //   }
+
+
+        List<List<Object>> movies1 = service.getTitleAndLanguage();
+        for (List<Object> movie : movies1) {
+            System.out.println("Title: " + movie.get(0));
+            System.out.println("Language: " + movie.get(1));
+        }
     }
 
 

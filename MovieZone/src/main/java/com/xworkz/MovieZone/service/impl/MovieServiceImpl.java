@@ -284,4 +284,28 @@ public class MovieServiceImpl implements MovieService {
 
         return Collections.emptyList();
     }
+
+
+    @Override
+    public List<Object[]> getTitleDirectorAndGenre() {
+        System.out.println("getTitleDirectorAndGenre : Service");
+        List<Object[]> movies = movieDAO.getTitleDirectorAndGenre();
+        if (movies != null) {
+            return movies;
+        }
+
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<List<Object>> getTitleAndLanguage() {
+
+        System.out.println("getTitleAndLanguage : Service");
+        List<List<Object>> movies = movieDAO.getTitleAndLanguage();
+        if (movies != null) {
+            return movies;
+        }
+
+        return Collections.emptyList();
+    }
 }

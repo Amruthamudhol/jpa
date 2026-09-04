@@ -22,5 +22,7 @@ public interface MovieDAO {
 
     List<String> getTitles();
     List<Object> getLanguages();
+    List<Object[]> getTitleDirectorAndGenre();
+    List<List<Object>> getTitleAndLanguage();
 
 }

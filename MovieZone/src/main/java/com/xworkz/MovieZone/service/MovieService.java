@@ -19,6 +19,8 @@ public interface MovieService {
 
     List<String> getTitles();
     List<Object> getLanguages();
+    List<Object[]> getTitleDirectorAndGenre();
+    List<List<Object>> getTitleAndLanguage();
 
 
 
