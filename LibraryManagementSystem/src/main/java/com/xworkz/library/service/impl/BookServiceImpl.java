@@ -264,4 +264,30 @@ public class BookServiceImpl implements BookService {
 
         return Collections.emptyList();
     }
+
+
+    @Override
+    public List<Object[]> getTitleAndAuthor() {
+        System.out.println("getTitleAndAuthor : Service");
+
+        List<Object[]> books = bookDAO.getTitleAndAuthor();
+        if (books != null) {
+            return books;
+        }
+
+        return Collections.emptyList();
+    }
+
+
+    @Override
+    public List<List<Object>> getTitleAndPrice() {
+        System.out.println("getTitleAndPrice : Service");
+        List<List<Object>> books = bookDAO.getTitleAndPrice();
+
+        if (books != null) {
+            return books;
+        }
+
+        return Collections.emptyList();
+    }
 }

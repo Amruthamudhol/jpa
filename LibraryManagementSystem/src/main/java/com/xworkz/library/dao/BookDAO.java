@@ -16,4 +16,6 @@ public interface BookDAO {
     Boolean updateBookQuantityByAuthor(String author, Integer quantity);
     List<String> getAuthors();
     List<Object> getCategories();
+    List<Object[]> getTitleAndAuthor();
+    List<List<Object>> getTitleAndPrice();
 }

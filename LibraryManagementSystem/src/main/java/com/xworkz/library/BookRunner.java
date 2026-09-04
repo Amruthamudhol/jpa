@@ -54,9 +54,23 @@ public class BookRunner {
 
        //
 
-        List<Object> categories = service.getCategories();
-        for (Object category : categories) {
-            System.out.println(category);
+      //  List<Object> categories = service.getCategories();
+      //  for (Object category : categories) {
+      //      System.out.println(category);
+     //   }
+
+
+        List<Object[]> books = service.getTitleAndAuthor();
+        for (Object[] book : books) {
+            System.out.println("Title: " + book[0]);
+            System.out.println("Author: " + book[1]);
+        }
+
+
+        List<List<Object>> books1 = service.getTitleAndPrice();
+        for (List<Object> book : books1) {
+            System.out.println("Title: " + book.get(0));
+            System.out.println("Price: " + book.get(1));
         }
 
     }

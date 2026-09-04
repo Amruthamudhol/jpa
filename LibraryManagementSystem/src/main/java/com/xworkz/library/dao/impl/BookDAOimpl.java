@@ -4,6 +4,8 @@ import com.xworkz.library.Entity.BookEntity;
 import com.xworkz.library.dao.BookDAO;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -346,5 +348,46 @@ public class BookDAOimpl implements BookDAO {
         }
 
         return categories;
+    }
+
+
+    @Override
+    public List<Object[]> getTitleAndAuthor() {
+
+        System.out.println("getTitleAndAuthor : DAO");
+
+        List<Object[]> books = Collections.emptyList();
+
+        try {
+
+            books = emf.createEntityManager()
+                    .createQuery("select b.title, b.author from BookEntity b")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return books;
+    }
+
+    @Override
+    public List<List<Object>> getTitleAndPrice() {
+        System.out.println("getTitleAndPrice : DAO");
+        List<List<Object>> books = new ArrayList<>();
+
+        try {
+            List<Object[]> result = emf.createEntityManager()
+                    .createQuery("select b.title, b.price from BookEntity b")
+                    .getResultList();
+            for (Object[] book : result) {
+                books.add(Arrays.asList(book));
+            }
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return books;
     }
 }

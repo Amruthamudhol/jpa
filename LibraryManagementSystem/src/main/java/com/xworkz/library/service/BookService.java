@@ -19,5 +19,7 @@ public interface BookService {
 
     List<String> getAuthors();
     List<Object> getCategories();
+    List<Object[]> getTitleAndAuthor();
+    List<List<Object>> getTitleAndPrice();
 
 }
