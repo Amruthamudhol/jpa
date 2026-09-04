@@ -4,6 +4,8 @@ import com.xworkz.RentRide.dao.VehicleDAO;
 import com.xworkz.RentRide.entity.VehicleEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -423,5 +425,46 @@ public class VehicleDAOimpl implements VehicleDAO {
         }
 
         return models;
+    }
+
+
+    @Override
+    public List<Object[]> getVehicleNameAndBrand() {
+        System.out.println("getVehicleNameAndBrand : DAO");
+        List<Object[]> vehicles = Collections.emptyList();
+
+        try {
+
+            vehicles = emf.createEntityManager()
+                    .createQuery("select v.vehicleName, v.brand from VehicleEntity v")
+                    .getResultList();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return vehicles;
+    }
+
+    @Override
+    public List<List<Object>> getVehicleNameAndModel() {
+
+        System.out.println("getVehicleNameAndModel : DAO");
+        List<List<Object>> vehicles = new ArrayList<>();
+
+        try {
+
+            List<Object[]> result = emf.createEntityManager()
+                    .createQuery("select v.vehicleName, v.model from VehicleEntity v")
+                    .getResultList();
+
+            for (Object[] vehicle : result) {
+                vehicles.add(Arrays.asList(vehicle));
+            }
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return vehicles;
     }
 }

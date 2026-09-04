@@ -55,9 +55,24 @@ public class DoctorRunner {
       //  System.out.println(phoneNumbers);
 
 
-        List<Object> emails = service.getEmails();
-        for (Object email : emails) {
-            System.out.println(email);
+     //   List<Object> emails = service.getEmails();
+      //  for (Object email : emails) {
+      //      System.out.println(email);
+     //   }
+
+
+    //    List<Object[]> doctors = service.getDoctorNameAndSpecialization();
+     //   for (Object[] doctor : doctors) {
+    //        System.out.println("Doctor Name: " + doctor[0]);
+      //      System.out.println("Specialization: " + doctor[1]);
+     //   }
+
+
+
+        List<List<Object>> doctors1 = service.getDoctorNameAndEmail();
+        for (List<Object> doctor : doctors1) {
+            System.out.println("Doctor Name: " + doctor.get(0));
+            System.out.println("Email: " + doctor.get(1));
         }
     }
 

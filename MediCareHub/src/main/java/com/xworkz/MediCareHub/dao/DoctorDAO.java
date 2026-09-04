@@ -19,4 +19,6 @@ public interface DoctorDAO {
     List<String> getDoctorNames();
     List<Long> getPhoneNumbers();
     List<Object> getEmails();
+    List<Object[]> getDoctorNameAndSpecialization();
+    List<List<Object>> getDoctorNameAndEmail();
 }

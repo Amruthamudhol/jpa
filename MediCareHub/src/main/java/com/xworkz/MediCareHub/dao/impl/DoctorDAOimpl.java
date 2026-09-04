@@ -4,6 +4,8 @@ import com.xworkz.MediCareHub.dao.DoctorDAO;
 import com.xworkz.MediCareHub.entity.DoctorEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -403,5 +405,47 @@ public class DoctorDAOimpl implements DoctorDAO {
             e.printStackTrace();
         }
         return emails;
+    }
+
+
+    @Override
+    public List<Object[]> getDoctorNameAndSpecialization() {
+        System.out.println("getDoctorNameAndSpecialization : DAO");
+        List<Object[]> doctors = Collections.emptyList();
+
+        try {
+            doctors = emf.createEntityManager()
+                    .createQuery("select d.doctorName, d.specialization from DoctorEntity d")
+                    .getResultList();
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return doctors;
+    }
+
+
+
+    @Override
+    public List<List<Object>> getDoctorNameAndEmail() {
+        System.out.println("getDoctorNameAndEmail : DAO");
+        List<List<Object>> doctors = new ArrayList<>();
+
+        try {
+
+            List<Object[]> result = emf.createEntityManager()
+                    .createQuery("select d.doctorName, d.email from DoctorEntity d")
+                    .getResultList();
+
+            for (Object[] doctor : result) {
+                doctors.add(Arrays.asList(doctor));
+            }
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return doctors;
     }
 }

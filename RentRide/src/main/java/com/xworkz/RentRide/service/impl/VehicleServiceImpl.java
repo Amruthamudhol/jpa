@@ -287,4 +287,28 @@ public class VehicleServiceImpl implements VehicleService {
 
         return Collections.emptyList();
     }
+
+
+    @Override
+    public List<Object[]> getVehicleNameAndBrand() {
+        System.out.println("getVehicleNameAndBrand : Service");
+        List<Object[]> vehicles = vehicleDAO.getVehicleNameAndBrand();
+        if (vehicles != null) {
+            return vehicles;
+        }
+
+        return Collections.emptyList();
+    }
+
+
+    @Override
+    public List<List<Object>> getVehicleNameAndModel() {
+        System.out.println("getVehicleNameAndModel : Service");
+        List<List<Object>> vehicles = vehicleDAO.getVehicleNameAndModel();
+        if (vehicles != null) {
+            return vehicles;
+        }
+
+        return Collections.emptyList();
+    }
 }

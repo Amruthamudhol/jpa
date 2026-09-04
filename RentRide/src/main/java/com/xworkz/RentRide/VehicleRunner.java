@@ -63,9 +63,20 @@ public class VehicleRunner {
         // for (String brand : brands) {
         //     System.out.println(brand);
 
+       // List<Object> models = service.getModels();
+       // System.out.println(models);
 
-        List<Object> models = service.getModels();
-        System.out.println(models);
+       // List<Object[]> vehicles =service.getVehicleNameAndBrand();
+      //  for (Object[] vehicle : vehicles) {
+          //  System.out.println("Vehicle Name: " + vehicle[0]);
+       //     System.out.println("Brand: " + vehicle[1]);
+      //  }
 
+
+        List<List<Object>> vehicles1= service.getVehicleNameAndModel();
+        for (List<Object> vehicle : vehicles1) {
+            System.out.println("Vehicle Name: " + vehicle.get(0));
+            System.out.println("Model: " + vehicle.get(1));
+        }
     }
 }

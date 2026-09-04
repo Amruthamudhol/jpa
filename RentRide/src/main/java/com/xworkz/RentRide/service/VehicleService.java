@@ -20,6 +20,9 @@ public interface VehicleService {
     List<String> getBrands();
 
     List<Object> getModels();
+    List<Object[]> getVehicleNameAndBrand();
+    List<List<Object>> getVehicleNameAndModel();
+
 
 
 }

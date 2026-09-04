@@ -286,5 +286,28 @@ public class DoctorServiceImpl implements DoctorService {
         return Collections.emptyList();
     }
 
+    @Override
+    public List<Object[]> getDoctorNameAndSpecialization() {
+        System.out.println("getDoctorNameAndSpecialization : Service");
+        List<Object[]> doctors = doctorDAO.getDoctorNameAndSpecialization();
+
+        if (doctors != null) {
+            return doctors;
+        }
+
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<List<Object>> getDoctorNameAndEmail() {
+        System.out.println("getDoctorNameAndEmail : Service");
+        List<List<Object>> doctors = doctorDAO.getDoctorNameAndEmail();
+
+        if (doctors != null) {
+            return doctors;
+        }
+
+        return Collections.emptyList();
+    }
 
 }
