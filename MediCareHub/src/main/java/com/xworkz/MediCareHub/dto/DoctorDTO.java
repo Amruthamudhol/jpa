@@ -13,4 +13,5 @@ public class DoctorDTO {
     private String email;
     private Long phoneNumber;
     private Integer experience;
+    private String status;
 }

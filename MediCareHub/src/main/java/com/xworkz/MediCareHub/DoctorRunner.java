@@ -1,5 +1,7 @@
 package com.xworkz.MediCareHub;
 
+import com.xworkz.MediCareHub.dao.DoctorDAO;
+import com.xworkz.MediCareHub.dao.impl.DoctorDAOimpl;
 import com.xworkz.MediCareHub.dto.DoctorDTO;
 import com.xworkz.MediCareHub.service.DoctorService;
 import com.xworkz.MediCareHub.service.impl.DoctorServiceImpl;
@@ -16,9 +18,9 @@ public class DoctorRunner {
 
         List<DoctorDTO> doctorDTOList = new ArrayList<>();
 
-        doctorDTOList.add(new DoctorDTO("Dr. Ravi Kumar", "Cardiologist", "ravi@gmail.com", 9876543210L, 10));
-        doctorDTOList.add(new DoctorDTO("Dr. Priya Sharma", "Dermatologist", "priya@gmail.com", 9876543211L, 7));
-        doctorDTOList.add(new DoctorDTO("Dr. Anil Kumar", "Neurologist", "anil@gmail.com", 9876543212L, 12));
+      //  doctorDTOList.add(new DoctorDTO("Dr. Ravi Kumar", "Cardiologist", "ravi@gmail.com", 9876543210L, 10));
+      //  doctorDTOList.add(new DoctorDTO("Dr. Priya Sharma", "Dermatologist", "priya@gmail.com", 9876543211L, 7));
+      //  doctorDTOList.add(new DoctorDTO("Dr. Anil Kumar", "Neurologist", "anil@gmail.com", 9876543212L, 12));
        // String savedStatus = service.saveAll(doctorDTOList);
       //  System.out.println(savedStatus);
 
@@ -69,11 +71,15 @@ public class DoctorRunner {
 
 
 
-        List<List<Object>> doctors1 = service.getDoctorNameAndEmail();
-        for (List<Object> doctor : doctors1) {
-            System.out.println("Doctor Name: " + doctor.get(0));
-            System.out.println("Email: " + doctor.get(1));
-        }
+       // List<List<Object>> doctors1 = service.getDoctorNameAndEmail();
+      //  for (List<Object> doctor : doctors1) {
+       //     System.out.println("Doctor Name: " + doctor.get(0));
+        //      System.out.println("Email: " + doctor.get(1));
+      //  }
+
+        DoctorDAO doctorDAO = new DoctorDAOimpl();
+        Boolean result = doctorDAO.updateStatus();
+        System.out.println("Status Updated : " + result);
     }
 
 }

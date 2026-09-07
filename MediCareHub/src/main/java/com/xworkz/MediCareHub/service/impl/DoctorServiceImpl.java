@@ -26,6 +26,7 @@ public class DoctorServiceImpl implements DoctorService {
             entity.setEmail(dto.getEmail());
             entity.setPhoneNumber(dto.getPhoneNumber());
             entity.setExperience(dto.getExperience());
+            entity.setStatus(dto.getStatus());
 
             boolean saved = doctorDAO.save(entity);
 
@@ -61,7 +62,9 @@ public class DoctorServiceImpl implements DoctorService {
                 entity.setEmail(dto.getEmail());
                 entity.setPhoneNumber(dto.getPhoneNumber());
                 entity.setExperience(dto.getExperience());
+                entity.setStatus(dto.getStatus());
                 entityList.add(entity);
+
             }
 
             boolean status = doctorDAO.saveAll(entityList);
@@ -95,6 +98,7 @@ public class DoctorServiceImpl implements DoctorService {
             dto.setEmail(entity.getEmail());
             dto.setPhoneNumber(entity.getPhoneNumber());
             dto.setExperience(entity.getExperience());
+            dto.setStatus(entity.getStatus());
 
             return dto;
         }
@@ -115,7 +119,8 @@ public class DoctorServiceImpl implements DoctorService {
                         entity.getSpecialization(),
                         entity.getEmail(),
                         entity.getPhoneNumber(),
-                        entity.getExperience()
+                        entity.getExperience(),
+                        entity.getStatus()
                 ))
                 .collect(Collectors.toList());
         return dtoList;
@@ -136,6 +141,7 @@ public class DoctorServiceImpl implements DoctorService {
             dto.setEmail(entity.getEmail());
             dto.setPhoneNumber(entity.getPhoneNumber());
             dto.setExperience(entity.getExperience());
+            dto.setStatus(entity.getStatus());
 
             dtoList.add(dto);
         }
@@ -158,6 +164,7 @@ public class DoctorServiceImpl implements DoctorService {
             dto.setEmail(entity.getEmail());
             dto.setPhoneNumber(entity.getPhoneNumber());
             dto.setExperience(entity.getExperience());
+            dto.setStatus(entity.getStatus());
 
             dtoList.add(dto);
         }
@@ -182,6 +189,7 @@ public class DoctorServiceImpl implements DoctorService {
             dto.setEmail(entity.getEmail());
             dto.setPhoneNumber(entity.getPhoneNumber());
             dto.setExperience(entity.getExperience());
+            dto.setStatus(entity.getStatus());
 
             dtoList.add(dto);
         }
@@ -206,6 +214,7 @@ public class DoctorServiceImpl implements DoctorService {
             dto.setEmail(entity.getEmail());
             dto.setPhoneNumber(entity.getPhoneNumber());
             dto.setExperience(entity.getExperience());
+            dto.setStatus(entity.getStatus());
         }
 
         return dto;

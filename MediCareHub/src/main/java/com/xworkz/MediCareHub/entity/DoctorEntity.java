@@ -28,7 +28,7 @@ import javax.persistence.*;
 @NamedQuery(name = "deleteDoctor", query = "DELETE FROM DoctorEntity d WHERE d.id = :id")
 @NamedQuery(name = "deleteDoctorBySpecialization", query = "DELETE FROM DoctorEntity d WHERE d.specialization = :specialization")
 
-
+@NamedQuery(name = "getAllDoctorEntityToUpdateStatus", query = "SELECT e FROM DoctorEntity e")
 
 public class DoctorEntity {
 
@@ -36,19 +36,25 @@ public class DoctorEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NonNull
     @Column(name = "doctor_name")
     private String doctorName;
 
     @Column(name = "specialization")
     private String specialization;
 
+    @NonNull
     @Column(name = "email")
     private String email;
 
+    @NonNull
     @Column(name = "phone_number")
     private Long phoneNumber;
 
     @Column(name = "experience")
     private Integer experience;
+
+    @Column(name = "status")
+    private String status;
 
 }

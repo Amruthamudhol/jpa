@@ -21,4 +21,5 @@ public interface DoctorDAO {
     List<Object> getEmails();
     List<Object[]> getDoctorNameAndSpecialization();
     List<List<Object>> getDoctorNameAndEmail();
+    Boolean updateStatus();
 }

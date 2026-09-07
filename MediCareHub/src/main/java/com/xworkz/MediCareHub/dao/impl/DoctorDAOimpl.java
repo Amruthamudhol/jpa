@@ -448,4 +448,40 @@ public class DoctorDAOimpl implements DoctorDAO {
 
         return doctors;
     }
+
+
+    @Override
+    public Boolean updateStatus() {
+        Boolean isUpdated = false;
+        EntityTransaction et = null;
+
+        try {
+
+            EntityManager em = emf.createEntityManager();
+            et = em.getTransaction();
+            et.begin();
+
+            List<DoctorEntity> doctorEntityList = em.createNamedQuery("getAllDoctorEntityToUpdateStatus").getResultList();
+
+            System.out.println("Doctors : " + doctorEntityList);
+            for (DoctorEntity entity : doctorEntityList) {
+                entity.setStatus("Available");
+            }
+
+            em.flush();
+            et.commit();
+
+            isUpdated = true;
+
+        } catch (PersistenceException e) {
+
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+
+            e.printStackTrace();
+        }
+
+        return isUpdated;
+    }
 }
