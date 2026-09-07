@@ -24,5 +24,7 @@ public interface MovieDAO {
     List<Object> getLanguages();
     List<Object[]> getTitleDirectorAndGenre();
     List<List<Object>> getTitleAndLanguage();
+    Boolean updateStatus();
+
 
 }

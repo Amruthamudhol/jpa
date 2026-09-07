@@ -412,4 +412,32 @@ public class MovieDAOimpl implements MovieDAO {
 
         return movies;
     }
+
+
+
+    @Override
+    public Boolean updateStatus() {
+        Boolean isUpdated = false;
+        EntityTransaction et = null;
+
+        try {
+            EntityManager em = emf.createEntityManager();
+            et = em.getTransaction();
+            et.begin();
+            List<MovieEntity> MovieEntityList = em.createNamedQuery("getAllEntityToUpdateStatus").getResultList();
+            System.out.println("Data based on status : " + MovieEntityList);
+            for (MovieEntity entity : MovieEntityList) {
+                entity.setStatus("release");
+            }
+            em.flush();
+            em.clear();
+            et.commit();
+            isUpdated = true;
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return isUpdated;
+    }
 }

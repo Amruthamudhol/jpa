@@ -13,4 +13,5 @@ public class MovieDTO {
     private String genre;
     private String language;
     private Double rating;
+    private String status;
 }

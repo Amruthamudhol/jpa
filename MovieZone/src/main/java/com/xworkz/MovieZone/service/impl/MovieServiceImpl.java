@@ -29,6 +29,7 @@ public class MovieServiceImpl implements MovieService {
             entity.setGenre(dto.getGenre());
             entity.setLanguage(dto.getLanguage());
             entity.setRating(dto.getRating());
+            entity.setStatus(dto.getStatus());
 
             boolean saved = movieDAO.save(entity);
 
@@ -70,6 +71,7 @@ public class MovieServiceImpl implements MovieService {
                 entity.setGenre(dto.getGenre());
                 entity.setLanguage(dto.getLanguage());
                 entity.setRating(dto.getRating());
+                entity.setStatus(dto.getStatus());
 
                 entityList.add(entity);
             }
@@ -104,6 +106,7 @@ public class MovieServiceImpl implements MovieService {
             dto.setGenre(entity.getGenre());
             dto.setLanguage(entity.getLanguage());
             dto.setRating(entity.getRating());
+            dto.setStatus(entity.getStatus());
 
             return dto;
         }
@@ -125,7 +128,8 @@ public class MovieServiceImpl implements MovieService {
                         entity.getDirector(),
                         entity.getGenre(),
                         entity.getLanguage(),
-                        entity.getRating()
+                        entity.getRating(),
+                        entity.getStatus()
                 ))
                 .collect(Collectors.toList());
     }
@@ -146,6 +150,7 @@ public class MovieServiceImpl implements MovieService {
             dto.setGenre(entity.getGenre());
             dto.setLanguage(entity.getLanguage());
             dto.setRating(entity.getRating());
+            dto.setStatus(entity.getStatus());
 
             dtoList.add(dto);
         }
@@ -170,6 +175,7 @@ public class MovieServiceImpl implements MovieService {
             dto.setGenre(entity.getGenre());
             dto.setLanguage(entity.getLanguage());
             dto.setRating(entity.getRating());
+            dto.setStatus(entity.getStatus());
 
             dtoList.add(dto);
         }
@@ -193,6 +199,7 @@ public class MovieServiceImpl implements MovieService {
             dto.setGenre(entity.getGenre());
             dto.setLanguage(entity.getLanguage());
             dto.setRating(entity.getRating());
+            dto.setStatus(entity.getStatus());
         }
 
         return dto;
@@ -213,6 +220,7 @@ public class MovieServiceImpl implements MovieService {
             dto.setGenre(entity.getGenre());
             dto.setLanguage(entity.getLanguage());
             dto.setRating(entity.getRating());
+            dto.setStatus(entity.getStatus());
         }
 
         return dto;

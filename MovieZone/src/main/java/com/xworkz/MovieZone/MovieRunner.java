@@ -1,5 +1,7 @@
 package com.xworkz.MovieZone;
 
+import com.xworkz.MovieZone.dao.MovieDAO;
+import com.xworkz.MovieZone.dao.impl.MovieDAOimpl;
 import com.xworkz.MovieZone.dto.MovieDTO;
 import com.xworkz.MovieZone.service.MovieService;
 import com.xworkz.MovieZone.service.impl.MovieServiceImpl;
@@ -18,9 +20,9 @@ public class MovieRunner {
 
         List<MovieDTO> movieDTOList = new ArrayList<>();
 
-        movieDTOList.add(new MovieDTO("KGF", "Prashanth Neel", "Action", "Kannada", 9.0));
-        movieDTOList.add(new MovieDTO("RRR", "S. S. Rajamouli", "Action", "Telugu", 8.8));
-        movieDTOList.add(new MovieDTO("3 Idiots", "Rajkumar Hirani", "Comedy", "Hindi", 8.4));
+      //  movieDTOList.add(new MovieDTO("KGF", "Prashanth Neel", "Action", "Kannada", 9.0,"release"));
+      //  movieDTOList.add(new MovieDTO("RRR", "S. S. Rajamouli", "Action", "Telugu", 8.8));
+      //  movieDTOList.add(new MovieDTO("3 Idiots", "Rajkumar Hirani", "Comedy", "Hindi", 8.4));
 
        // String savedStatus = service.saveAll(movieDTOList);
        // System.out.println(savedStatus);
@@ -63,10 +65,10 @@ public class MovieRunner {
 
 
 
-        List<Object> languages = service.getLanguages();
-        for (Object language : languages) {
-            System.out.println(language);
-        }
+      //  List<Object> languages = service.getLanguages();
+      //  for (Object language : languages) {
+      //      System.out.println(language);
+      //  }
 
 
      //   List<Object[]> movies = service.getTitleDirectorAndGenre();
@@ -77,11 +79,16 @@ public class MovieRunner {
      //   }
 
 
-        List<List<Object>> movies1 = service.getTitleAndLanguage();
-        for (List<Object> movie : movies1) {
-            System.out.println("Title: " + movie.get(0));
-            System.out.println("Language: " + movie.get(1));
-        }
+        //List<List<Object>> movies1 = service.getTitleAndLanguage();
+       // for (List<Object> movie : movies1) {
+        //    System.out.println("Title: " + movie.get(0));
+        //    System.out.println("Language: " + movie.get(1));
+       // }
+
+
+         MovieDAO movieDAO = new MovieDAOimpl();
+        Boolean result = movieDAO.updateStatus();
+         System.out.println("Status Updated : " + result);
     }
 
 

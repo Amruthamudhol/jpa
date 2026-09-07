@@ -24,11 +24,13 @@ import javax.persistence.*;
 //delete
 @NamedQuery(name = "deleteMovie", query = "delete from MovieEntity m where m.id = :id")
 @NamedQuery(name = "deleteMovieByGenre", query = "delete from MovieEntity m where m.genre = :genre")
+@NamedQuery(name = "getAllEntityToUpdateStatus", query = "SELECT e FROM MovieEntity e")
 public class MovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NonNull
     @Column(name = "title")
     private String title;
 
@@ -38,9 +40,14 @@ public class MovieEntity {
     @Column(name = "genre")
     private String genre;
 
+    @NonNull
     @Column(name = "language")
     private String language;
 
     @Column(name = "rating")
     private Double rating;
+
+    @Column(name = "status")
+    private String status;
+
 }
