@@ -28,6 +28,7 @@ public class JobServiceImpl implements JobService {
             entity.setLocation(dto.getLocation());
             entity.setJobType(dto.getJobType());
             entity.setSalary(dto.getSalary());
+            entity.setDescription(dto.getDescription());
 
             boolean saved = jobDAO.save(entity);
 
@@ -63,6 +64,7 @@ public class JobServiceImpl implements JobService {
                 entity.setLocation(dto.getLocation());
                 entity.setJobType(dto.getJobType());
                 entity.setSalary(dto.getSalary());
+                entity.setDescription(dto.getDescription());
                 entityList.add(entity);
             }
             boolean status = jobDAO.saveAll(entityList);
@@ -93,6 +95,7 @@ public class JobServiceImpl implements JobService {
             dto.setLocation(entity.getLocation());
             dto.setJobType(entity.getJobType());
             dto.setSalary(entity.getSalary());
+            dto.setDescription(entity.getDescription());
 
             return dto;
         }
@@ -113,7 +116,8 @@ public class JobServiceImpl implements JobService {
                         entity.getCompanyName(),
                         entity.getLocation(),
                         entity.getJobType(),
-                        entity.getSalary()
+                        entity.getSalary(),
+                        entity.getDescription()
                 ))
                 .collect(Collectors.toList());
 
@@ -136,6 +140,7 @@ public class JobServiceImpl implements JobService {
             dto.setLocation(entity.getLocation());
             dto.setJobType(entity.getJobType());
             dto.setSalary(entity.getSalary());
+            dto.setDescription(entity.getDescription());
 
             dtoList.add(dto);
         }
@@ -157,6 +162,7 @@ public class JobServiceImpl implements JobService {
             dto.setLocation(entity.getLocation());
             dto.setJobType(entity.getJobType());
             dto.setSalary(entity.getSalary());
+            dto.setDescription(entity.getDescription());
 
             dtoList.add(dto);
         }
@@ -181,6 +187,7 @@ public class JobServiceImpl implements JobService {
             dto.setLocation(entity.getLocation());
             dto.setJobType(entity.getJobType());
             dto.setSalary(entity.getSalary());
+            dto.setDescription(entity.getDescription());
         }
 
         return dto;
@@ -203,6 +210,7 @@ public class JobServiceImpl implements JobService {
             dto.setLocation(entity.getLocation());
             dto.setJobType(entity.getJobType());
             dto.setSalary(entity.getSalary());
+            dto.setDescription(entity.getDescription());
         }
 
         return dto;

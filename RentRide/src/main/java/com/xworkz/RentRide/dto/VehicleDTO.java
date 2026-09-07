@@ -4,13 +4,16 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class VehicleDTO {
     private String vehicleName;
     private String vehicleType;
     private String brand;
     private String model;
     private Double rentPerDay;
+    private String status;
+
+
 }

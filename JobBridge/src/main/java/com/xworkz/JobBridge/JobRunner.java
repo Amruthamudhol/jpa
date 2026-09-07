@@ -1,5 +1,7 @@
 package com.xworkz.JobBridge;
 
+import com.xworkz.JobBridge.dao.JobDAO;
+import com.xworkz.JobBridge.dao.impl.JobDAOimpl;
 import com.xworkz.JobBridge.dto.JobDTO;
 import com.xworkz.JobBridge.service.JobService;
 import com.xworkz.JobBridge.service.impl.JobServiceImpl;
@@ -12,7 +14,7 @@ public class JobRunner {
 
       // JobDTO dto = new JobDTO("Java Developer", "Infosys", "Bangalore", "Full Time", 60000.0);
        // JobDTO dto1 = new JobDTO("data analyst", "Infosys", "Bangalore", "Full Time", 60000.0);
-        JobDTO dto2 = new JobDTO("Manager", "Infosys", "Bangalore", "Full Time", 60000.0);
+     //   JobDTO dto2 = new JobDTO("Manager", "Infosys", "Bangalore", "Full Time", 60000.0,"Responsible for developing and maintaining software applications.");
 
         JobService service = new JobServiceImpl();
       // boolean isSaved = service.validateAndSave(dto2);
@@ -69,18 +71,22 @@ public class JobRunner {
     //    for (Object companyName : companyNames) {
     //        System.out.println(companyName);
      //   }
-        List<Object[]> jobs = service.getJobTitleAndCompanyName();
-        for (Object[] job : jobs) {
-            System.out.println("Job Title: " + job[0]);
-            System.out.println("Company Name: " + job[1]);
-        }
+      //  List<Object[]> jobs = service.getJobTitleAndCompanyName();
+      //  for (Object[] job : jobs) {
+      //      System.out.println("Job Title: " + job[0]);
+     //       System.out.println("Company Name: " + job[1]);
+     //   }
 
-        List<List<Object>> jobs1= service.getJobTitleAndJobType();
-        for (List<Object> job : jobs1) {
-            System.out.println("Job Title : " + job.get(0));
-            System.out.println("Job Type  : " + job.get(1));
-            System.out.println("----------------------");
-        }
+       // List<List<Object>> jobs1= service.getJobTitleAndJobType();
+       // for (List<Object> job : jobs1) {
+         //   System.out.println("Job Title : " + job.get(0));
+        //    System.out.println("Job Type  : " + job.get(1));
+        //    System.out.println("----------------------");
+      //  }
+
+        JobDAO jobDAO = new JobDAOimpl();
+        Boolean result = jobDAO.updateDescription();
+        System.out.println("Description Updated : " + result);
 
     }
     }

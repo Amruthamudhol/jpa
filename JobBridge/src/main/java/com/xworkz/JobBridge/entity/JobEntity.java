@@ -29,6 +29,8 @@ import javax.persistence.*;
 @NamedQuery(name = "deleteJobByCompanyName", query = "DELETE FROM JobEntity j WHERE j.companyName = :companyName")
 
 
+@NamedQuery(name = "getAllEntityToUpdateDescription", query = "SELECT e FROM JobEntity e")
+
 public class JobEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +40,7 @@ public class JobEntity {
     private String jobTitle;
 
     @Column(name = "company_name")
+    @NonNull
     private String companyName;
 
     @Column(name = "location")
@@ -47,5 +50,11 @@ public class JobEntity {
     private String jobType;
 
     @Column(name = "salary")
+    @NonNull
     private Double salary;
+
+   @Column(name = "description")
+    private String description;
+
+
 }

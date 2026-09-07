@@ -28,12 +28,17 @@ import javax.persistence.*;
 //delete
 @NamedQuery(name = "deleteVehicleEntityById", query = "delete from VehicleEntity e where e.id = :id")
 @NamedQuery(name = "deleteVehicleByBrand", query = "delete from VehicleEntity v where v.brand = :brand")
+
+
+@NamedQuery(name = "getAllEntityToUpdateStatus", query = "SELECT v FROM VehicleEntity v WHERE v.status IS NULL")
 public class VehicleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
     @Column(name = "vehicle_name")
+    @NonNull
     private String vehicleName;
 
     @Column(name = "vehicle_type")
@@ -47,4 +52,7 @@ public class VehicleEntity {
 
     @Column(name = "rent_per_day")
     private Double rentPerDay;
+
+    @Column(name = "status")
+    private String status;
 }

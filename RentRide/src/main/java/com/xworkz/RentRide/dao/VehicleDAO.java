@@ -25,5 +25,7 @@ public interface VehicleDAO {
     List<Object[]> getVehicleNameAndBrand();
     List<List<Object>> getVehicleNameAndModel();
 
+    Boolean updateStatus();
+
 
 }

@@ -1,5 +1,7 @@
 package com.xworkz.RentRide;
 
+import com.xworkz.RentRide.dao.VehicleDAO;
+import com.xworkz.RentRide.dao.impl.VehicleDAOimpl;
 import com.xworkz.RentRide.dto.VehicleDTO;
 import com.xworkz.RentRide.service.VehicleService;
 import com.xworkz.RentRide.service.impl.VehicleServiceImpl;
@@ -11,18 +13,18 @@ public class VehicleRunner {
     public static void main(String[] args) {
 
 
-        VehicleDTO dto1 = new VehicleDTO("Activa 7G", "Scooter", "Honda", "6G", 500.0);
+        VehicleDTO dto1 = new VehicleDTO("Activa 7G", "Scooter", "Honda", "6G", 500.0,"");
 
         VehicleService service = new VehicleServiceImpl();
-        // boolean isSaved = service.save(dto1);
+         boolean isSaved = service.save(dto1);
 
 
-        List<VehicleDTO> vehicleDTOList = new ArrayList<>();
+     //   List<VehicleDTO> vehicleDTOList = new ArrayList<>();
 
-        vehicleDTOList.add(new VehicleDTO("Activa 6G", "Scooter", "Honda", "6G", 500.0));
-        vehicleDTOList.add(new VehicleDTO("Royal Enfield Classic 350", "Bike", "Royal Enfield", "Classic 350", 800.0));
-        vehicleDTOList.add(new VehicleDTO("Apache RTR 160", "Bike", "TVS", "RTR 160", 700.0));
-        vehicleDTOList.add(new VehicleDTO("HONDA", "Car", "Maruti", "2024", 1500.0));
+     //   vehicleDTOList.add(new VehicleDTO("Activa 6G", "Scooter", "Honda", "6G", 500.0));
+      //  vehicleDTOList.add(new VehicleDTO("Royal Enfield Classic 350", "Bike", "Royal Enfield", "Classic 350", 800.0));
+     //   vehicleDTOList.add(new VehicleDTO("Apache RTR 160", "Bike", "TVS", "RTR 160", 700.0));
+      //  vehicleDTOList.add(new VehicleDTO("HONDA", "Car", "Maruti", "2024", 1500.0));
         // String savedStatus = service.saveAll(vehicleDTOList);
 
         //  System.out.println(savedStatus);
@@ -73,10 +75,14 @@ public class VehicleRunner {
       //  }
 
 
-        List<List<Object>> vehicles1= service.getVehicleNameAndModel();
-        for (List<Object> vehicle : vehicles1) {
-            System.out.println("Vehicle Name: " + vehicle.get(0));
-            System.out.println("Model: " + vehicle.get(1));
-        }
+      //  List<List<Object>> vehicles1= service.getVehicleNameAndModel();
+      //  for (List<Object> vehicle : vehicles1) {
+       //     System.out.println("Vehicle Name: " + vehicle.get(0));
+     //       System.out.println("Model: " + vehicle.get(1));
+       // }
+
+       // VehicleDAO vehicleDAO = new VehicleDAOimpl();
+       // Boolean result = vehicleDAO.updateStatus();
+       // System.out.println("Status Updated : " + result);
     }
 }

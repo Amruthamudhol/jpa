@@ -116,7 +116,8 @@ public class VehicleServiceImpl implements VehicleService {
                         entity.getVehicleType(),
                         entity.getBrand(),
                         entity.getModel(),
-                        entity.getRentPerDay()
+                        entity.getRentPerDay(),
+                        entity.getStatus()
                 ))
                 .collect(Collectors.toList());
 
@@ -136,7 +137,8 @@ public class VehicleServiceImpl implements VehicleService {
                     vehicleEntity.getVehicleType(),
                     vehicleEntity.getBrand(),
                     vehicleEntity.getModel(),
-                    vehicleEntity.getRentPerDay()
+                    vehicleEntity.getRentPerDay(),
+                    vehicleEntity.getStatus()
             );
         }
 
@@ -153,7 +155,7 @@ public class VehicleServiceImpl implements VehicleService {
 
         for (VehicleEntity vehicleEntity : vehicleEntityList) {
 
-            VehicleDTO vehicleDTO = new VehicleDTO(vehicleEntity.getVehicleName(), vehicleEntity.getVehicleType(), vehicleEntity.getBrand(), vehicleEntity.getModel(), vehicleEntity.getRentPerDay());
+            VehicleDTO vehicleDTO = new VehicleDTO(vehicleEntity.getVehicleName(), vehicleEntity.getVehicleType(), vehicleEntity.getBrand(), vehicleEntity.getModel(), vehicleEntity.getRentPerDay(), vehicleEntity.getStatus());
             vehicleDTOList.add(vehicleDTO);
         }
 
@@ -174,7 +176,8 @@ public class VehicleServiceImpl implements VehicleService {
                     vehicleEntity.getVehicleType(),
                     vehicleEntity.getBrand(),
                     vehicleEntity.getModel(),
-                    vehicleEntity.getRentPerDay()
+                    vehicleEntity.getRentPerDay(),
+                    vehicleEntity.getStatus()
             );
         }
 
@@ -196,7 +199,8 @@ public class VehicleServiceImpl implements VehicleService {
                     vehicleEntity.getVehicleType(),
                     vehicleEntity.getBrand(),
                     vehicleEntity.getModel(),
-                    vehicleEntity.getRentPerDay()
+                    vehicleEntity.getRentPerDay(),
+                    vehicleEntity.getStatus()
             );
 
             vehicleDTOList.add(vehicleDTO);

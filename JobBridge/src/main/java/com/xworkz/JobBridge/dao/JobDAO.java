@@ -21,4 +21,5 @@ public interface JobDAO {
     List<Object> getCompanyNames();
     List<Object[]> getJobTitleAndCompanyName();
     List<List<Object>> getJobTitleAndJobType();
+    Boolean updateDescription();
 }

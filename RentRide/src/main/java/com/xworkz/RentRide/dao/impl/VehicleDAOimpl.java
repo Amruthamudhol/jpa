@@ -467,4 +467,35 @@ public class VehicleDAOimpl implements VehicleDAO {
 
         return vehicles;
     }
+
+
+
+    @Override
+    public Boolean updateStatus() {
+        Boolean isUpdated = false;
+        EntityTransaction et = null;
+
+        try {
+
+            EntityManager em = emf.createEntityManager();
+            et = em.getTransaction();
+            et.begin();
+
+            List<VehicleEntity> vehicleEntityList = em.createNamedQuery("getAllEntityToUpdateStatus").getResultList();
+            System.out.println("Data based on status : " + vehicleEntityList);
+
+            for (VehicleEntity entity : vehicleEntityList) {
+                entity.setStatus("active");
+            }
+            em.flush();
+            em.clear();
+            et.commit();
+            isUpdated = true;
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return isUpdated;
+    }
 }

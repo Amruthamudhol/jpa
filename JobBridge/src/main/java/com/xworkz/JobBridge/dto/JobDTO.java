@@ -14,4 +14,5 @@ public class JobDTO {
     private String location;
     private String jobType;
     private Double salary;
+    private String description;
 }

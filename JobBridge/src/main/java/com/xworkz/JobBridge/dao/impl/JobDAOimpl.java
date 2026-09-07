@@ -455,4 +455,33 @@ public class JobDAOimpl implements JobDAO {
 
         return jobs;
     }
+
+    @Override
+    public Boolean updateDescription() {
+        Boolean isUpdated = false;
+        EntityTransaction et = null;
+
+        try {
+            EntityManager em = emf.createEntityManager();
+            et = em.getTransaction();
+            et.begin();
+
+            List<JobEntity> jobEntityList = em.createNamedQuery("getAllEntityToUpdateDescription").getResultList();
+            System.out.println("Data based on description : " + jobEntityList);
+
+            for (JobEntity entity : jobEntityList) {
+                entity.setDescription("JResponsible for developing and maintaining software applications.");
+            }
+            em.flush();
+            em.clear();
+
+            et.commit();
+            isUpdated = true;
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+        return isUpdated;
+    }
 }
