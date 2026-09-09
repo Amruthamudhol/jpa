@@ -12,11 +12,19 @@ import java.util.List;
 public class VehicleRunner {
     public static void main(String[] args) {
 
-
-        VehicleDTO dto1 = new VehicleDTO("Activa 7G", "Scooter", "Honda", "6G", 500.0,"");
+       // VehicleDTO dto1 = new VehicleDTO("Activa 7G", "Scooter", "Honda", "6G", 500.0,"");
+       // boolean isSaved = service.save(dto1);
 
         VehicleService service = new VehicleServiceImpl();
-         boolean isSaved = service.save(dto1);
+        VehicleDTO dto = new VehicleDTO();
+        //dto.setVehicleName("Activa 7G");
+      //  dto.setBrand("Honda");
+       // dto.setModel("6G");
+        dto.setVehicleType("Car");
+        dto.setRentPerDay(1500.0);
+        dto.setStatus("Active");
+        Boolean result = service.save(dto);
+        System.out.println("Vehicle Saved : " + result);
 
 
      //   List<VehicleDTO> vehicleDTOList = new ArrayList<>();

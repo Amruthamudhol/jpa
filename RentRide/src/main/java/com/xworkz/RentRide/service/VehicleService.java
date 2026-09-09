@@ -5,7 +5,7 @@ import com.xworkz.RentRide.dto.VehicleDTO;
 import java.util.List;
 
 public interface VehicleService {
-    boolean save(VehicleDTO dto);
+    Boolean save(VehicleDTO dto);
     String saveAll(List<VehicleDTO> dtoList);
     VehicleDTO findVehicleDTOById(Integer id);
     List<VehicleDTO> readAllVehicleDTO();

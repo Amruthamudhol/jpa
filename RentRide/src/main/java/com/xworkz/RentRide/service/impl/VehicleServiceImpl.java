@@ -5,22 +5,27 @@ import com.xworkz.RentRide.dao.impl.VehicleDAOimpl;
 import com.xworkz.RentRide.dto.VehicleDTO;
 import com.xworkz.RentRide.entity.VehicleEntity;
 import com.xworkz.RentRide.service.VehicleService;
+import com.xworkz.RentRide.util.ValidationUtil;
 
+import javax.validation.ConstraintViolation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class VehicleServiceImpl implements VehicleService {
-
     VehicleDAO vehicleDAO = new VehicleDAOimpl();
-
     @Override
-    public boolean save(VehicleDTO dto) {
-        System.out.println("Invoking validateAndSave : VehicleServiceImpl");
-        boolean isSaved = false;
+    public Boolean save(VehicleDTO dto) {
 
-        if (dto != null) {
+        System.out.println("Invoking saveVehicle : VehicleServiceImpl");
+        Set<ConstraintViolation<VehicleDTO>> validation = ValidationUtil.getValidator().validate(dto);
+
+        System.out.println("Validation count : " + validation.size());
+
+        if (validation.isEmpty()) {
+
             VehicleEntity entity = new VehicleEntity();
 
             entity.setVehicleName(dto.getVehicleName());
@@ -28,23 +33,19 @@ public class VehicleServiceImpl implements VehicleService {
             entity.setBrand(dto.getBrand());
             entity.setModel(dto.getModel());
             entity.setRentPerDay(dto.getRentPerDay());
+            entity.setStatus(dto.getStatus());
 
-            boolean saved = vehicleDAO.save(entity);
-
-            if (saved) {
-                isSaved = true;
-                System.out.println("Data Saved");
-            } else {
-                isSaved = false;
-                System.out.println("Data Not Saved");
-            }
+            return vehicleDAO.save(entity);
 
         } else {
 
-            System.out.println("Data is Empty");
-        }
+            for (ConstraintViolation<VehicleDTO> violation : validation) {
+                System.out.println("Property : " + violation.getPropertyPath());
+                System.out.println("Message : " + violation.getMessage());
+            }
 
-        return isSaved;
+            return false;
+        }
     }
 
     @Override

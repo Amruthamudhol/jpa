@@ -18,10 +18,8 @@ public class VehicleDAOimpl implements VehicleDAO {
         System.out.println("Invoking save : VehicleDAOimpl");
         EntityManager em = null;
         EntityTransaction et = null;
-
         try {
             em = emf.createEntityManager();
-
             et = em.getTransaction();
             et.begin();
             em.persist(entity);
@@ -31,17 +29,12 @@ public class VehicleDAOimpl implements VehicleDAO {
             return true;
 
         } catch (Exception e) {
-
             if (et != null && et.isActive()) {
                 et.rollback();
             }
-
             e.printStackTrace();
-
             return false;
-
         } finally {
-
             if (em != null) {
                 em.close();
             }
