@@ -3,6 +3,7 @@ package com.xworkz.MovieZone.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "movie_info")
@@ -49,5 +50,8 @@ public class MovieEntity {
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "release_date")
+    private LocalDate releaseDate;
 
 }

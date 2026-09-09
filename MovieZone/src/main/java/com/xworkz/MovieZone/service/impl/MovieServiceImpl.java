@@ -32,6 +32,7 @@ public class MovieServiceImpl implements MovieService {
             entity.setLanguage(dto.getLanguage());
             entity.setRating(dto.getRating());
             entity.setStatus(dto.getStatus());
+            entity.setReleaseDate(dto.getReleaseDate());
 
             return movieDAO.save(entity);
 
@@ -125,7 +126,8 @@ public class MovieServiceImpl implements MovieService {
                         entity.getGenre(),
                         entity.getLanguage(),
                         entity.getRating(),
-                        entity.getStatus()
+                        entity.getStatus(),
+                        entity.getReleaseDate()
                 ))
                 .collect(Collectors.toList());
     }

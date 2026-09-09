@@ -6,6 +6,7 @@ import com.xworkz.MovieZone.dto.MovieDTO;
 import com.xworkz.MovieZone.service.MovieService;
 import com.xworkz.MovieZone.service.impl.MovieServiceImpl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,9 @@ public class MovieRunner {
         dto.setDirector("Prashanth Neel");
         dto.setGenre("Action");
         dto.setLanguage("Kannada");
-        dto.setRating(0.0);
+        dto.setRating(9.0);
         dto.setStatus("Released");
+        dto.setReleaseDate(LocalDate.of(2025, 12, 2));
 
         boolean result = service.validateAndSave(dto);
         System.out.println("Saved : " + result);
