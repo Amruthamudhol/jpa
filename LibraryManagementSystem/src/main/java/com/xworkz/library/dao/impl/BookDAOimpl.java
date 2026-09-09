@@ -27,10 +27,9 @@ public class BookDAOimpl implements BookDAO {
             System.out.println("Data saved successfully: " + entity);
 
             return true;
-
         } catch (PersistenceException e) {
 
-            if (et != null && et.isActive()) {
+            if (et != null ) {
                 et.rollback();
             }
 
@@ -39,7 +38,6 @@ public class BookDAOimpl implements BookDAO {
             return false;
 
         } finally {
-
             if (em != null) {
                 em.close();
             }

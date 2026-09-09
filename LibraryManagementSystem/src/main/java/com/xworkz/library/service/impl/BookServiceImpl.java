@@ -5,20 +5,25 @@ import com.xworkz.library.dao.BookDAO;
 import com.xworkz.library.dao.impl.BookDAOimpl;
 import com.xworkz.library.dto.BookDTO;
 import com.xworkz.library.service.BookService;
+import com.xworkz.library.util.ValidationUtil;
 
+import javax.validation.ConstraintViolation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class BookServiceImpl implements BookService {
     BookDAO bookDAO = new BookDAOimpl();
-
     @Override
-    public boolean validateAndSave(BookDTO dto) {
+    public Boolean validateAndSave(BookDTO dto) {
+
         System.out.println("Invoking validateAndSave : BookServiceImpl");
-        boolean isSaved = false;
-        if (dto != null) {
+        Set<ConstraintViolation<BookDTO>> validation = ValidationUtil.getValidator().validate(dto);
+        System.out.println("Validation count : " + validation.size());
+
+        if (validation.isEmpty()) {
 
             // DTO -> Entity
             BookEntity entity = new BookEntity();
@@ -28,21 +33,16 @@ public class BookServiceImpl implements BookService {
             entity.setCategory(dto.getCategory());
             entity.setPrice(dto.getPrice());
             entity.setQuantity(dto.getQuantity());
-
-            boolean saved = bookDAO.save(entity);
-            if (saved) {
-                isSaved = true;
-                System.out.println("Data Saved");
-            } else {
-                isSaved = false;
-                System.out.println("Data Not Saved");
-            }
+            return bookDAO.save(entity);
 
         } else {
-            System.out.println("Data is Empty");
-        }
 
-        return isSaved;
+            for (ConstraintViolation<BookDTO> violation : validation) {
+                System.out.println("Property : " + violation.getPropertyPath());
+                System.out.println("Message : " + violation.getMessage());
+            }
+            return false;
+        }
     }
 
 

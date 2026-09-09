@@ -14,13 +14,19 @@ public class BookRunner {
        // BookDTO dto1 = new BookDTO("The Alchemist", "Paulo Coelho", "Fiction", 150.0, 10);
 
         BookService service = new BookServiceImpl();
-      // boolean isSaved = service.validateAndSave(dto1);
+        BookDTO dto = new BookDTO();
+        dto.setTitle("Java Programming");
+        dto.setAuthor("James Gosling");
+        dto.setCategory("Programming");
+        dto.setPrice(-1000.0);
+        dto.setQuantity(0);
+      boolean isSaved = service.validateAndSave(dto);
 
-       List<BookDTO> bookDTOList = new ArrayList<>();
+     //  List<BookDTO> bookDTOList = new ArrayList<>();
 
-        bookDTOList.add(new BookDTO("Java Programming", "James Gosling", "Programming", 599.0, 10));
-        bookDTOList.add(new BookDTO("Clean Code", "Robert Martin", "Programming", 799.0, 5));
-        bookDTOList.add(new BookDTO("Effective Java", "Joshua Bloch", "Programming", 899.0, 8));
+       // bookDTOList.add(new BookDTO("Java Programming", "James Gosling", "Programming", 599.0, 10));
+       // bookDTOList.add(new BookDTO("Clean Code", "Robert Martin", "Programming", 799.0, 5));
+       // bookDTOList.add(new BookDTO("Effective Java", "Joshua Bloch", "Programming", 899.0, 8));
 
         //String savedStatus = service.saveAll(bookDTOList);
 
@@ -60,18 +66,18 @@ public class BookRunner {
      //   }
 
 
-        List<Object[]> books = service.getTitleAndAuthor();
-        for (Object[] book : books) {
-            System.out.println("Title: " + book[0]);
-            System.out.println("Author: " + book[1]);
-        }
+     //   List<Object[]> books = service.getTitleAndAuthor();
+     //   for (Object[] book : books) {
+     //       System.out.println("Title: " + book[0]);
+      //      System.out.println("Author: " + book[1]);
+      //  }
 
 
-        List<List<Object>> books1 = service.getTitleAndPrice();
-        for (List<Object> book : books1) {
-            System.out.println("Title: " + book.get(0));
-            System.out.println("Price: " + book.get(1));
-        }
+      //  List<List<Object>> books1 = service.getTitleAndPrice();
+     //   for (List<Object> book : books1) {
+      //      System.out.println("Title: " + book.get(0));
+      //      System.out.println("Price: " + book.get(1));
+      //  }
 
     }
 
