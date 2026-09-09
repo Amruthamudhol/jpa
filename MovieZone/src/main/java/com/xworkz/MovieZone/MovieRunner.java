@@ -12,13 +12,20 @@ import java.util.List;
 public class MovieRunner {
     public static void main(String[] args) {
         MovieService service = new MovieServiceImpl();
-       // MovieDTO dto = new MovieDTO("KGF Chapter 1", "Prashanth Neel", "Action", "Kannada", 8.4);
-       // MovieDTO dto1= new MovieDTO("Toxic","Geetu Mohandas","Action","Multi-language", 8.0);
+       MovieDTO dto = new MovieDTO();
+        dto.setTitle("KGF");
+        dto.setDirector("Prashanth Neel");
+        dto.setGenre("Action");
+        dto.setLanguage("Kannada");
+        dto.setRating(0.0);
+        dto.setStatus("Released");
 
-      //  boolean isSaved = service.validateAndSave(dto1);
+        boolean result = service.validateAndSave(dto);
+        System.out.println("Saved : " + result);
 
 
-        List<MovieDTO> movieDTOList = new ArrayList<>();
+
+        //List<MovieDTO> movieDTOList = new ArrayList<>();
 
       //  movieDTOList.add(new MovieDTO("KGF", "Prashanth Neel", "Action", "Kannada", 9.0,"release"));
       //  movieDTOList.add(new MovieDTO("RRR", "S. S. Rajamouli", "Action", "Telugu", 8.8));
@@ -86,9 +93,9 @@ public class MovieRunner {
        // }
 
 
-         MovieDAO movieDAO = new MovieDAOimpl();
-        Boolean result = movieDAO.updateStatus();
-         System.out.println("Status Updated : " + result);
+       //  MovieDAO movieDAO = new MovieDAOimpl();
+      //  Boolean result = movieDAO.updateStatus();
+      //   System.out.println("Status Updated : " + result);
     }
 
 

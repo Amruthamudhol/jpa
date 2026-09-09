@@ -5,10 +5,13 @@ import com.xworkz.MovieZone.dao.impl.MovieDAOimpl;
 import com.xworkz.MovieZone.dto.MovieDTO;
 import com.xworkz.MovieZone.entity.MovieEntity;
 import com.xworkz.MovieZone.service.MovieService;
+import com.xworkz.MovieZone.util.ValidationUtil;
 
+import javax.validation.ConstraintViolation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MovieServiceImpl implements MovieService {
@@ -18,12 +21,11 @@ public class MovieServiceImpl implements MovieService {
     public boolean validateAndSave(MovieDTO dto) {
 
         System.out.println("Invoking validateAndSave : MovieServiceImpl");
+        Set<ConstraintViolation<MovieDTO>> validation = ValidationUtil.getValidator().validate(dto);
+        System.out.println("Validation count : " + validation.size());
 
-        boolean isSaved = false;
-
-        if (dto != null) {
+        if (validation.isEmpty()) {
             MovieEntity entity = new MovieEntity();
-
             entity.setTitle(dto.getTitle());
             entity.setDirector(dto.getDirector());
             entity.setGenre(dto.getGenre());
@@ -31,21 +33,15 @@ public class MovieServiceImpl implements MovieService {
             entity.setRating(dto.getRating());
             entity.setStatus(dto.getStatus());
 
-            boolean saved = movieDAO.save(entity);
-
-            if (saved) {
-                isSaved = true;
-                System.out.println("Data Saved");
-            } else {
-                isSaved = false;
-                System.out.println("Data Not Saved");
-            }
+            return movieDAO.save(entity);
 
         } else {
-            System.out.println("Data is Empty");
+            for (ConstraintViolation<MovieDTO> violation : validation) {
+                System.out.println("Property : " + violation.getPropertyPath());
+                System.out.println("Message : " + violation.getMessage());
+            }
+            return false;
         }
-
-        return isSaved;
     }
 
 
