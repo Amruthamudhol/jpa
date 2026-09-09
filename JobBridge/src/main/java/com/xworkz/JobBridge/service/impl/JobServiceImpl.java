@@ -5,10 +5,13 @@ import com.xworkz.JobBridge.dao.impl.JobDAOimpl;
 import com.xworkz.JobBridge.dto.JobDTO;
 import com.xworkz.JobBridge.entity.JobEntity;
 import com.xworkz.JobBridge.service.JobService;
+import com.xworkz.JobBridge.util.ValidationUtil;
 
+import javax.validation.ConstraintViolation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class JobServiceImpl implements JobService {
@@ -18,9 +21,12 @@ public class JobServiceImpl implements JobService {
     public boolean validateAndSave(JobDTO dto) {
 
         System.out.println("Invoking validateAndSave : JobServiceImpl");
-        boolean isSaved = false;
+        Set<ConstraintViolation<JobDTO>> validation = ValidationUtil.getValidator().validate(dto);
 
-        if (dto != null) {
+        System.out.println("Validation count : " + validation.size());
+
+        if (validation.isEmpty()) {
+            // DTO -> Entity
             JobEntity entity = new JobEntity();
 
             entity.setJobTitle(dto.getJobTitle());
@@ -30,22 +36,16 @@ public class JobServiceImpl implements JobService {
             entity.setSalary(dto.getSalary());
             entity.setDescription(dto.getDescription());
 
-            boolean saved = jobDAO.save(entity);
-
-            if (saved) {
-                isSaved = true;
-                System.out.println("Data Saved");
-            } else {
-                isSaved = false;
-                System.out.println("Data Not Saved");
-            }
+            return jobDAO.save(entity);
 
         } else {
+            for (ConstraintViolation<JobDTO> violation : validation) {
+                System.out.println("Property : " + violation.getPropertyPath());
+                System.out.println("Message : " + violation.getMessage());
+            }
 
-            System.out.println("Data is Empty");
+            return false;
         }
-
-        return isSaved;
     }
 
     @Override

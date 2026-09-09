@@ -17,6 +17,19 @@ public class JobRunner {
      //   JobDTO dto2 = new JobDTO("Manager", "Infosys", "Bangalore", "Full Time", 60000.0,"Responsible for developing and maintaining software applications.");
 
         JobService service = new JobServiceImpl();
+        JobDTO dto = new JobDTO();
+      //  dto.setJobTitle("Java Developer");
+        dto.setCompanyName("Infosys");
+        dto.setLocation("Bangalore");
+        dto.setJobType("Full Time");
+        dto.setSalary(-50000.0);
+        dto.setDescription("Java developer required for backend development");
+
+        boolean result = service.validateAndSave(dto);
+        System.out.println("Saved : " + result);
+
+
+
       // boolean isSaved = service.validateAndSave(dto2);
        //if (isSaved) {
          //  System.out.println("Job saved successfully");
@@ -84,9 +97,9 @@ public class JobRunner {
         //    System.out.println("----------------------");
       //  }
 
-        JobDAO jobDAO = new JobDAOimpl();
-        Boolean result = jobDAO.updateDescription();
-        System.out.println("Description Updated : " + result);
+        //JobDAO jobDAO = new JobDAOimpl();
+      //  Boolean result = jobDAO.updateDescription();
+      //  System.out.println("Description Updated : " + result);
 
     }
     }
