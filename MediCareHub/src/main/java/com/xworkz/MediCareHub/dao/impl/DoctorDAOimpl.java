@@ -22,23 +22,16 @@ public class DoctorDAOimpl implements DoctorDAO {
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();
-
             em.persist(entity);
-
             et.commit();
-
             System.out.println("Doctor Data Saved");
-
             return true;
 
         } catch (Exception e) {
-
-            if (et != null && et.isActive()) {
+            if (et != null ) {
                 et.rollback();
             }
-
             e.printStackTrace();
-
             return false;
 
         } finally {
@@ -47,9 +40,6 @@ public class DoctorDAOimpl implements DoctorDAO {
                 em.close();
             }
 
-            if (emf != null) {
-                emf.close();
-            }
         }
     }
 

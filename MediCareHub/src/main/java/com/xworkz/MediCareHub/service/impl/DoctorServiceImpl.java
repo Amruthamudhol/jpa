@@ -5,20 +5,24 @@ import com.xworkz.MediCareHub.dao.impl.DoctorDAOimpl;
 import com.xworkz.MediCareHub.dto.DoctorDTO;
 import com.xworkz.MediCareHub.entity.DoctorEntity;
 import com.xworkz.MediCareHub.service.DoctorService;
+import com.xworkz.MediCareHub.util.ValidationUtil;
 
+import javax.validation.ConstraintViolation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class DoctorServiceImpl implements DoctorService {
     DoctorDAO doctorDAO = new DoctorDAOimpl();
     @Override
-    public boolean validateAndSave(DoctorDTO dto) {
-        System.out.println("Invoking validateAndSave : DoctorServiceImpl");
-        boolean isSaved = false;
+    public Boolean validateAndSave(DoctorDTO dto) {
 
-        if (dto != null) {
+        System.out.println("Invoking validateAndSave : DoctorServiceImpl");
+        Set<ConstraintViolation<DoctorDTO>> validation = ValidationUtil.getValidator().validate(dto);
+
+        if (validation.isEmpty()) {
             DoctorEntity entity = new DoctorEntity();
 
             entity.setDoctorName(dto.getDoctorName());
@@ -28,20 +32,17 @@ public class DoctorServiceImpl implements DoctorService {
             entity.setExperience(dto.getExperience());
             entity.setStatus(dto.getStatus());
 
-            boolean saved = doctorDAO.save(entity);
+            return doctorDAO.save(entity);
 
-            if (saved) {
-                isSaved = true;
-                System.out.println("Data Saved");
-            } else {
-                isSaved = false;
-                System.out.println("Data Not Saved");
-            }
         } else {
-            System.out.println("Data is Empty");
-        }
 
-        return isSaved;
+            for (ConstraintViolation<DoctorDTO> violation : validation) {
+                System.out.println("Property : " + violation.getPropertyPath());
+                System.out.println("Message : " + violation.getMessage());
+            }
+
+            return false;
+        }
     }
 
 

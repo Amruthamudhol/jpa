@@ -14,9 +14,18 @@ public class DoctorRunner {
 
            // DoctorDTO dto = new DoctorDTO("Dr.Amruta", "Cardiologist", "amruta@gmail.com", 9876543210L, 10);
            DoctorService service = new DoctorServiceImpl();
-          //  boolean isSaved = service.validateAndSave(dto);
+           DoctorDAO doctorDAO = new DoctorDAOimpl();
+           DoctorDTO dto = new DoctorDTO();
+           dto.setDoctorName("Dr.Amruta");
+           dto.setSpecialization("Cardiologist");
+           dto.setEmail("amruta@gmail.com");
+           dto.setPhoneNumber(9876543210L);
+           dto.setExperience(10);
+           dto.setStatus("Active");
+           boolean isSaved = service.validateAndSave(dto);
 
-        List<DoctorDTO> doctorDTOList = new ArrayList<>();
+
+       // List<DoctorDTO> doctorDTOList = new ArrayList<>();
 
       //  doctorDTOList.add(new DoctorDTO("Dr. Ravi Kumar", "Cardiologist", "ravi@gmail.com", 9876543210L, 10));
       //  doctorDTOList.add(new DoctorDTO("Dr. Priya Sharma", "Dermatologist", "priya@gmail.com", 9876543211L, 7));
@@ -77,9 +86,9 @@ public class DoctorRunner {
         //      System.out.println("Email: " + doctor.get(1));
       //  }
 
-        DoctorDAO doctorDAO = new DoctorDAOimpl();
-        Boolean result = doctorDAO.updateStatus();
-        System.out.println("Status Updated : " + result);
+        //DoctorDAO doctorDAO = new DoctorDAOimpl();
+      //  Boolean result = doctorDAO.updateStatus();
+       // System.out.println("Status Updated : " + result);
     }
 
 }

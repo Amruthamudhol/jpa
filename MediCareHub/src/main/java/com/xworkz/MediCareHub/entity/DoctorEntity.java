@@ -36,18 +36,16 @@ public class DoctorEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NonNull
+
     @Column(name = "doctor_name")
     private String doctorName;
 
     @Column(name = "specialization")
     private String specialization;
 
-    @NonNull
     @Column(name = "email")
     private String email;
 
-    @NonNull
     @Column(name = "phone_number")
     private Long phoneNumber;
 
